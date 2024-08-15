@@ -129,3 +129,6 @@ Ketika error terdeteksi, langkah pertama adalah memahami pesan error tersebut da
 2. **Latihan:**
     - **Tugas:** Lakukan reindexing pada tabel, bersihkan log yang tidak diperlukan, dan jadwalkan backup. Analisis log untuk mencari error dan lakukan tindakan perbaikan yang diperlukan.
     - **Output:** Laporan singkat tentang kegiatan pemeliharaan yang dilakukan dan hasilnya.
+
+---
+[⏮ Case dan NoSQL](../9-case-dan-nosql/README.md) || [Home 🏘](../README.md)

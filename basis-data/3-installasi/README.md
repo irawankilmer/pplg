@@ -136,3 +136,6 @@ USE toko_online;
    - **Tugas:** Instal MySQL atau PostgreSQL di komputer kalian. Buat beberapa user dengan hak akses yang berbeda, dan coba buat serta hapus basis data
 
    - **Output:** Screenshot atau catatan dari proses instalasi dan pengelolaan user yang kalian lakukan.
+
+---
+[⏮ Desin Basis Data](../2-desain-basis-data/README.md) || [Home 🏘](../README.md) || [DDL ⏭](../4-ddl/README.md)

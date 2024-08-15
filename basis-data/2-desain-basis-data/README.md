@@ -222,3 +222,7 @@ ID_Pesanan | ID_Produk | Jumlah
 2. **Latihan:**
     - **Tugas:** Desain basis data sederhana untuk aplikasi penjualan online. Identifikasi entitas, atribut, dan relasi antar tabel. Lakukan normalisasi hingga 3NF.
     - **Output:** Diagram relasi tabel yang mencerminkan penerapan berbagai jenis hubungan dan hasil normalisasi hingga 3NF.
+
+---
+
+[⏮ Pengenalan Basis Data](../1-pengenalan-basis-data/README.md) || [Home 🏘](../README.md) || [Installasi ⏭](../3-installasi/README.md)

@@ -147,3 +147,6 @@ Constraint ini seperti aturan main dalam basis data. Mereka memastikan bahwa dat
 2. **Latihan:**
     - **Tugas:** Buat tabel baru untuk menyimpan data karyawan di perusahaan kalian, lengkap dengan constraint yang sesuai. Gunakan perintah `CREATE`, `ALTER`, dan `DROP` untuk memodifikasi tabel jika diperlukan.
     - **Output:** Kode SQL dan penjelasan singkat tentang apa yang dilakukan setiap bagian dari kode tersebut.
+
+---
+[⏮ Installasi](../3-installasi/README.md) || [Home 🏘](../README.md) || [DML ⏭](../5-dml/README.md)

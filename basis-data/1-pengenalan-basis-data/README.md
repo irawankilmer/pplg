@@ -83,4 +83,6 @@ Misalnya, sebuah perusahaan memiliki tabel "Karyawan" dengan Primary Key "ID_Kar
     - **Tugas:** Buat diagram entitas dan atribut sederhana untuk sistem perpustakaan. Gambarkan entitas seperti Buku, Anggota, dan Peminjaman, serta atribut yang terkait dengan setiap entitas.
     - **Output:** Diagram yang menunjukkan entitas, atribut, dan hubungan antara entitas.
 
-[Home 🏘](../README.md) | [Materi Berikutnya ⏭](../2-desain-basis-data/README.md)
+---
+
+[Home 🏘](../README.md) || [Desain Basis Data ⏭](../2-desain-basis-data/README.md)

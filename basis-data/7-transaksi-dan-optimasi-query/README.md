@@ -109,3 +109,6 @@ Jika query yang kalian buat berjalan lambat, gunakan `EXPLAIN` untuk melihat apa
 2. **Latihan:**
     - **Tugas:** Buat beberapa query yang melibatkan transaksi (menggunakan COMMIT dan ROLLBACK), lalu analisis performa query tersebut menggunakan EXPLAIN. Identifikasi area di mana query bisa dioptimalkan.
     - **Output:** Kode SQL yang menunjukkan penggunaan transaksi dan optimasi query, serta laporan singkat tentang hasil analisis performa.
+
+---
+[⏮ DCL](../6-dcl/README.md) || [Home 🏘](../README.md) || [Stored Procedures dan Triggers ⏭](../8-stored-procedures-and-triggers/README.md)

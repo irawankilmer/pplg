@@ -119,3 +119,6 @@ Audit log adalah alat yang sangat berguna untuk mendeteksi dan menyelidiki aktiv
 2. **Latihan:**
     - **Tugas:** Gunakan perintah GRANT dan REVOKE untuk mengelola hak akses pengguna dalam basis data kalian. Buat skenario di mana kalian harus menambah dan mencabut hak akses sesuai kebutuhan.
     - **Output:** Kode SQL yang menunjukkan bagaimana kalian mengelola hak akses pengguna dan laporan singkat tentang hasilnya.
+
+---
+[⏮ DML](../6-dcl/README.md) || [Home 🏘](../README.md) || [Tansaksi dan Optimasi Query ⏭](../7-transaksi-dan-optimasi-query/README.md)

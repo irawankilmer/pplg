@@ -139,3 +139,6 @@ Dalam sistem manajemen gudang, otomatisasi seperti ini sangat penting untuk efis
 2. **Latihan:**
     - **Tugas:** Buat stored procedure untuk melakukan kalkulasi tertentu di basis data kalian dan buat trigger untuk menangani otomatisasi tugas yang sering terjadi. Uji coba dengan data nyata untuk melihat bagaimana keduanya bekerja.
     - **Output:** Kode SQL untuk stored procedures dan triggers, serta laporan singkat tentang bagaimana mereka mempengaruhi operasi basis data kalian.
+
+---
+[⏮ Transaksi dan Optimasi Query](../7-transaksi-dan-optimasi-query/README.md) || [Home 🏘](../README.md) || [Case dan NoSQL ⏭](../9-case-dan-nosql/README.md)

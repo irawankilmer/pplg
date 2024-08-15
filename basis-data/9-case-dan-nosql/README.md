@@ -106,3 +106,6 @@ NoSQL sangat penting untuk aplikasi yang membutuhkan fleksibilitas tinggi dalam 
 2. **Latihan:**
     - **Tugas:** Buat skenario aplikasi yang memerlukan NoSQL. Pilih jenis NoSQL yang tepat dan desain skema data untuk aplikasi tersebut. Bandingkan kelebihan dan kekurangan dengan skema RDBMS tradisional.
     - **Output:** Deskripsi skenario, pilihan NoSQL, dan skema data yang diusulkan, serta analisis perbandingan dengan RDBMS.
+
+---
+[⏮ Stored Procedures dan Triggers](../8-stored-procedures-and-triggers/README.md) || [Home 🏘](../README.md) || [Monitoring ⏭](../10-monitoring/README.md)

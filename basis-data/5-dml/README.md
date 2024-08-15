@@ -178,3 +178,6 @@ INNER JOIN Pesanan ON Pelanggan.ID_Pelanggan = Pesanan.ID_Pelanggan;
 2. **Latihan:**
     - **Tugas:** Gunakan DML untuk mengisi tabel dengan data, memperbarui beberapa record, menghapus record yang tidak diperlukan, dan menggabungkan tabel menggunakan JOIN.
     - **Output:** Kode SQL dan hasil query yang menunjukkan operasi DML yang kalian lakukan.
+
+---
+[⏮ DDL](../4-ddl/README.md) || [Home 🏘](../README.md) || [DML ⏭](../6-dcl/README.md)
