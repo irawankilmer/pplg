@@ -1,111 +1,69 @@
 # **Bab 9 - Kasus Penggunaan Nyata dan Pengenalan NoSQL**
+#### **Tujuan Pembelajaran**
+Pada akhir sesi ini, kalian akan mampu:
+- Menerapkan konsep basis data dalam kasus penggunaan nyata yang relevan dengan dunia industri.
+- Memahami konsep dasar basis data NoSQL dan bagaimana mereka berbeda dari basis data relasional.
+- Mengidentifikasi skenario di mana penggunaan basis data NoSQL lebih cocok daripada basis data relasional.
 
-## **Tujuan Pembelajaran**
-Setelah pertemuan ini, kalian diharapkan:
-- Memahami bagaimana basis data relasional diterapkan dalam proyek nyata.
-- Mengerti kapan dan mengapa NoSQL digunakan sebagai alternatif dari RDBMS.
-- Memahami perbedaan utama antara RDBMS dan NoSQL, serta mengetahui beberapa jenis NoSQL yang umum digunakan.
+#### **Materi yang Akan Dibahas**
 
-## **Materi yang Akan Dibahas**
-1. Kasus Penggunaan Nyata Basis Data Relasional
-2. Pengenalan NoSQL dan Perbedaannya dengan RDBMS
-3. Jenis-Jenis Basis Data NoSQL
-4. Contoh Implementasi NoSQL dalam Skenario Nyata
+1. **Kasus Penggunaan Nyata dalam Basis Data**
+   - **Pengertian Kasus Penggunaan Nyata:**
+     - Kasus penggunaan nyata merujuk pada aplikasi praktis dari konsep basis data dalam situasi kehidupan nyata atau dunia industri. Ini membantu kalian untuk memahami bagaimana teori yang dipelajari di kelas dapat diterapkan dalam konteks profesional.
+   - **Contoh Kasus Penggunaan:**
+     - **Sistem Manajemen Siswa**: Basis data untuk mengelola informasi siswa, kelas, dan penilaian di sekolah.
+     - **Sistem E-commerce**: Basis data yang digunakan untuk mengelola produk, pesanan, pelanggan, dan transaksi dalam platform e-commerce.
+     - **Sistem Perbankan**: Mengelola informasi akun, transaksi, pinjaman, dan nasabah.
+     - **Sistem Pemesanan Tiket**: Basis data yang digunakan untuk mengelola pemesanan tiket penerbangan, bioskop, atau transportasi publik.
 
----
+2. **Pengenalan NoSQL**
+   - **Apa itu NoSQL?**
+     - NoSQL (Not Only SQL) adalah jenis basis data yang tidak menggunakan model tabel relasional seperti basis data SQL tradisional. NoSQL dirancang untuk menangani sejumlah besar data terdistribusi dan tidak terstruktur, seperti data yang dihasilkan oleh aplikasi web dan mobile modern.
+   - **Jenis-jenis Basis Data NoSQL:**
+     - **Document Stores**: Menggunakan format dokumen (misalnya JSON) untuk menyimpan data, contoh: MongoDB.
+     - **Key-Value Stores**: Menyimpan data sebagai pasangan kunci-nilai, contoh: Redis.
+     - **Column Stores**: Menyimpan data dalam kolom-kolom, bukan baris, yang memungkinkan akses data yang sangat cepat, contoh: Apache Cassandra.
+     - **Graph Databases**: Menyimpan data dalam bentuk grafis, ideal untuk data yang saling terkait seperti jaringan sosial, contoh: Neo4j.
+   - **Kapan Menggunakan NoSQL?**
+     - **Skalabilitas Horizontal**: Ketika aplikasi membutuhkan skalabilitas yang tinggi dengan data terdistribusi.
+     - **Data Tidak Terstruktur**: Ketika data tidak sesuai dengan model tabel relasional tradisional.
+     - **Kecepatan Akses**: Ketika aplikasi membutuhkan kecepatan akses data yang sangat tinggi, seperti dalam cache atau aplikasi real-time.
 
-## **1. Kasus Penggunaan Nyata Basis Data Relasional**
+3. **Perbandingan SQL dan NoSQL**
+   - **SQL (Relational Databases):**
+     - Menggunakan skema yang terstruktur dan tabel-tabel yang saling berhubungan.
+     - Cocok untuk aplikasi yang membutuhkan konsistensi data dan integritas referensial.
+     - Kurang fleksibel dalam menangani data tidak terstruktur atau data dalam jumlah sangat besar yang tersebar di banyak lokasi.
+   - **NoSQL (Non-Relational Databases):**
+     - Tidak memiliki skema yang kaku, lebih fleksibel dalam menangani data tidak terstruktur.
+     - Didesain untuk mendukung skalabilitas horizontal, cocok untuk aplikasi modern yang menangani data dalam jumlah besar.
+     - Kurang cocok untuk aplikasi yang memerlukan konsistensi data yang ketat.
 
-### **Implementasi Basis Data dalam Proyek Nyata**
-Basis data relasional (RDBMS) digunakan di berbagai bidang untuk mengelola data yang terstruktur dan terhubung. Beberapa contoh implementasi dalam proyek nyata meliputi:
+4. **Studi Kasus Penggunaan NoSQL**
+   - **MongoDB dalam E-commerce:**
+     - MongoDB sering digunakan dalam platform e-commerce untuk mengelola katalog produk yang memiliki berbagai macam atribut dan variasi. Keuntungan utama MongoDB adalah kemampuannya untuk menyimpan data dalam format JSON, yang memudahkan penanganan data tidak terstruktur atau semi-terstruktur.
+   - **Redis sebagai Cache:**
+     - Redis, sebagai key-value store, sering digunakan sebagai cache untuk meningkatkan kecepatan akses data di aplikasi yang membutuhkan performa tinggi. Data yang sering diakses disimpan di Redis untuk mengurangi beban pada basis data utama.
+   - **Apache Cassandra untuk Big Data:**
+     - Apache Cassandra digunakan oleh perusahaan besar yang menangani data dalam skala besar, seperti Facebook dan Netflix. Karena arsitektur terdistribusinya, Cassandra dapat menangani replikasi data lintas banyak pusat data, menjadikannya ideal untuk aplikasi yang membutuhkan ketersediaan data yang tinggi.
+   - **Neo4j dalam Jaringan Sosial:**
+     - Neo4j digunakan dalam aplikasi yang memerlukan pemodelan relasi yang kompleks antar entitas, seperti dalam jaringan sosial. Misalnya, untuk memodelkan hubungan pertemanan dan rekomendasi dalam sebuah platform sosial.
 
-1. **Sistem Manajemen Inventaris:**
-    - Menggunakan tabel untuk menyimpan informasi produk, pemasok, pesanan, dan stok.
-    - Relasi antara tabel memungkinkan manajemen stok yang efisien, memudahkan pelacakan produk dari pemasok hingga ke pelanggan.
+5. **Praktikum Lengkap**
 
-2. **Sistem Informasi Akademik:**
-    - Tabel siswa, mata pelajaran, jadwal, dan nilai yang saling berhubungan.
-    - Memudahkan pencarian data siswa, pengelolaan jadwal, serta perekaman dan penilaian hasil akademik.
+   - **Latihan 1: Kasus Penggunaan Nyata dalam Basis Data Relasional**
+     - Buatlah sebuah model basis data untuk sistem manajemen siswa yang mencakup tabel `Siswa`, `Kelas`, dan `Nilai`. Tulis query untuk menampilkan laporan nilai siswa berdasarkan kelas.
 
-3. **E-commerce:**
-    - Menyimpan data produk, pelanggan, pesanan, dan pembayaran dalam tabel terpisah.
-    - Memungkinkan penelusuran pesanan dan stok secara real-time serta pengelolaan data pelanggan untuk keperluan pemasaran.
+   - **Latihan 2: Penggunaan NoSQL**
+     - Pilih salah satu basis data NoSQL (misalnya MongoDB) dan buat contoh skema untuk sistem e-commerce yang mengelola produk dan pesanan. Tulis perintah untuk menambahkan data dan melakukan pencarian berdasarkan kriteria tertentu.
 
-### **Mengapa RDBMS Dipilih?**
-RDBMS dipilih dalam skenario ini karena:
-- **Data Terstruktur:** Data yang terorganisir dalam tabel dengan hubungan yang jelas.
-- **Konsistensi dan Integritas:** Menjamin bahwa data tetap konsisten dan akurat melalui constraints dan transaksi ACID.
-- **Query yang Kuat:** SQL memungkinkan untuk query yang kompleks, agregasi data, dan pengelolaan data yang terhubung.
+6. **Diskusi dan Review**
 
-## **2. Pengenalan NoSQL dan Perbedaannya dengan RDBMS**
+- **Kapan Menggunakan SQL vs NoSQL?**
+  - **Diskusi:** Dalam skenario apa kalian lebih memilih basis data relasional seperti SQL dan kapan kalian akan memilih NoSQL? Diskusikan pro dan kontra masing-masing jenis basis data berdasarkan kebutuhan aplikasi.
 
-### **Apa Itu NoSQL?**
-NoSQL adalah jenis sistem basis data yang dirancang untuk menangani data yang tidak terstruktur atau semi-terstruktur. Tidak seperti RDBMS yang menggunakan tabel dan relasi, NoSQL menawarkan fleksibilitas lebih dalam penyimpanan dan pengelolaan data.
-
-### **Perbedaan Utama antara NoSQL dan RDBMS:**
-
-1. **Struktur Data:**
-    - **RDBMS:** Menggunakan tabel dengan baris dan kolom, sangat terstruktur.
-    - **NoSQL:** Menggunakan dokumen, key-value, kolom lebar, atau graf, lebih fleksibel dalam menangani data yang tidak terstruktur.
-
-2. **Skalabilitas:**
-    - **RDBMS:** Skalabilitas vertikal (menambah kapasitas dengan meningkatkan hardware).
-    - **NoSQL:** Skalabilitas horizontal (menambah kapasitas dengan menambah server).
-
-3. **Transaksi:**
-    - **RDBMS:** Mendukung transaksi ACID yang menjamin konsistensi.
-    - **NoSQL:** Beberapa sistem NoSQL mungkin tidak mendukung ACID penuh, tetapi mendukung BASE (Basically Available, Soft state, Eventual consistency).
-
-### **Kapan Menggunakan NoSQL?**
-NoSQL cocok digunakan ketika:
-- Data yang dikelola sangat besar (big data) dan tidak terstruktur.
-- Aplikasi memerlukan skalabilitas tinggi dan performa cepat.
-- Skema data sering berubah atau tidak tetap.
-
-## **3. Jenis-Jenis Basis Data NoSQL**
-
-### **1. Key-Value Stores:**
-- **Contoh:** Redis, DynamoDB.
-- **Penggunaan:** Menyimpan data dalam pasangan key-value sederhana, cocok untuk cache dan sesi pengguna.
-
-### **2. Document Stores:**
-- **Contoh:** MongoDB, CouchDB.
-- **Penggunaan:** Menyimpan data dalam format dokumen (seperti JSON), cocok untuk data semi-terstruktur yang sering berubah.
-
-### **3. Column-Family Stores:**
-- **Contoh:** Cassandra, HBase.
-- **Penggunaan:** Menyimpan data dalam kolom yang sangat terdistribusi, cocok untuk analisis big data.
-
-### **4. Graph Databases:**
-- **Contoh:** Neo4j, ArangoDB.
-- **Penggunaan:** Menyimpan dan mengelola data yang saling terhubung melalui graf, cocok untuk analisis jaringan sosial dan rekomendasi.
-
-## **4. Contoh Implementasi NoSQL dalam Skenario Nyata**
-
-### **Skenario: Aplikasi Media Sosial**
-
-**Dokumen Database (MongoDB):**
-- **Penggunaan:** Menyimpan profil pengguna, postingan, komentar, dan interaksi dalam dokumen terpisah.
-- **Keuntungan:** Fleksibilitas dalam menyimpan data dengan skema yang berbeda, skalabilitas tinggi untuk menangani jutaan pengguna dan interaksi mereka.
-
-**Graf Database (Neo4j):**
-- **Penggunaan:** Menyimpan hubungan antara pengguna (misalnya, pertemanan, pengikut) dan interaksi mereka (misalnya, like, share).
-- **Keuntungan:** Sangat efisien dalam memproses query yang melibatkan hubungan kompleks, seperti rekomendasi teman atau analisis jaringan.
-
-### **Mengapa Implementasi Ini Penting?**
-NoSQL sangat penting untuk aplikasi yang membutuhkan fleksibilitas tinggi dalam penyimpanan data, serta performa dan skalabilitas yang dapat diandalkan, terutama dalam lingkungan dengan pertumbuhan data yang cepat dan tidak terstruktur.
-
----
-
-### **Aktivitas**
-
-1. **Diskusi Kelompok:**
-    - **Topik:** Kapan kalian harus memilih NoSQL dibandingkan RDBMS dalam proyek nyata?
-    - **Tujuan:** Memahami situasi di mana NoSQL lebih unggul dari RDBMS, dan bagaimana mengintegrasikan NoSQL dalam sistem basis data yang sudah ada.
-
-2. **Latihan:**
-    - **Tugas:** Buat skenario aplikasi yang memerlukan NoSQL. Pilih jenis NoSQL yang tepat dan desain skema data untuk aplikasi tersebut. Bandingkan kelebihan dan kekurangan dengan skema RDBMS tradisional.
-    - **Output:** Deskripsi skenario, pilihan NoSQL, dan skema data yang diusulkan, serta analisis perbandingan dengan RDBMS.
+- **Bagaimana Studi Kasus Membantu Memahami NoSQL?**
+  - **Diskusi:** Mengapa penting untuk memahami contoh penggunaan nyata dalam memilih jenis basis data yang tepat? Bagaimana MongoDB, Redis, Cassandra, dan Neo4j digunakan dalam industri? Diskusikan bagaimana skenario ini dapat diterapkan dalam proyek kalian sendiri.
 
 ---
 [⏮ Stored Procedures dan Triggers](../8-stored-procedures-and-triggers/README.md) || [Home 🏘](../README.md) || [Monitoring ⏭](../10-monitoring/README.md)

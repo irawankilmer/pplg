@@ -1,144 +1,155 @@
-# **Bab 8 - Pemrograman SQL (Stored Procedures & Triggers)**
+# **Bab 8 - Pemrograman SQL (Stored Procedures, Triggers dan Subqueries)**
+#### **Tujuan Pembelajaran**
+Pada akhir sesi ini, kalian akan mampu:
+- Memahami dan membuat stored procedures untuk menjalankan sekumpulan perintah SQL secara otomatis.
+- Menggunakan triggers untuk menjalankan aksi otomatis sebagai respons terhadap perubahan data.
+- Menggunakan subqueries untuk melakukan query di dalam query lain untuk operasi yang lebih kompleks.
 
-## **Tujuan Pembelajaran**
-Setelah pertemuan ini, kalian diharapkan:
-- Memahami konsep dasar stored procedures dan triggers dalam SQL.
-- Mampu membuat dan menggunakan stored procedures untuk otomatisasi tugas-tugas di dalam basis data.
-- Memahami fungsi triggers dan bagaimana mereka dapat digunakan untuk menangani kejadian otomatis dalam basis data.
-- Mengerti bagaimana stored procedures dan triggers berkontribusi terhadap efisiensi dan konsistensi data dalam aplikasi basis data.
+#### **Materi yang Akan Dibahas**
 
-## **Materi yang Akan Dibahas**
-1. Pengenalan Stored Procedures
-2. Membuat dan Menggunakan Stored Procedures
-3. Pengenalan Triggers
-4. Membuat dan Menggunakan Triggers
-5. Contoh Implementasi dalam Skenario Nyata
+1. **Pengenalan Stored Procedures**
+   - **Apa itu Stored Procedure?**
+     - Stored Procedure adalah sekumpulan perintah SQL yang disimpan di dalam basis data dan dapat dipanggil untuk dieksekusi. Stored procedures memungkinkan kalian untuk menjalankan operasi yang berulang secara otomatis, mengurangi duplikasi kode, dan meningkatkan efisiensi pemrograman.
+   - **Mengapa Menggunakan Stored Procedures?**
+     - Dengan stored procedures, kalian bisa mengelompokkan beberapa operasi SQL yang sering digunakan ke dalam satu unit yang dapat dipanggil kapan saja. Ini juga meningkatkan keamanan karena parameter input dapat divalidasi di sisi server.
+   - **Membuat Stored Procedure:**
+     - **Contoh:**
+       ```sql
+       CREATE PROCEDURE TambahSiswa(
+           IN NIS INT,
+           IN Nama VARCHAR(100),
+           IN Kelas VARCHAR(10)
+       )
+       BEGIN
+           INSERT INTO Siswa (NIS, Nama, Kelas) VALUES (NIS, Nama, Kelas);
+       END;
+       ```
+     - **Penjelasan:**
+       - Stored procedure ini menerima tiga parameter (`NIS`, `Nama`, `Kelas`) dan menggunakan mereka untuk menambahkan data ke dalam tabel `Siswa`.
+   - **Memanggil Stored Procedure:**
+     - **Contoh:**
+       ```sql
+       CALL TambahSiswa(12349, 'John Doe', 'XI-IPA3');
+       ```
 
----
+2. **Pengenalan Triggers**
+   - **Apa itu Trigger?**
+     - Trigger adalah perintah SQL yang secara otomatis dieksekusi sebagai respons terhadap peristiwa tertentu pada tabel, seperti `INSERT`, `UPDATE`, atau `DELETE`. Triggers sering digunakan untuk menjaga integritas data atau untuk mencatat perubahan dalam basis data.
+   - **Mengapa Menggunakan Triggers?**
+     - Triggers memungkinkan kalian untuk mengotomatisasi tugas-tugas yang harus dilakukan setiap kali terjadi perubahan data, misalnya, mencatat waktu terakhir suatu data diubah atau memvalidasi data sebelum disimpan.
+   - **Membuat Trigger:**
+     - **Contoh:**
+       ```sql
+       CREATE TRIGGER BeforeInsertSiswa
+       BEFORE INSERT ON Siswa
+       FOR EACH ROW
+       BEGIN
+           IF NEW.Kelas IS NULL THEN
+               SET NEW.Kelas = 'Belum ditentukan';
+           END IF;
+       END;
+       ```
+     - **Penjelasan:**
+       - Trigger ini secara otomatis memeriksa apakah kolom `Kelas` memiliki nilai saat ada `INSERT` baru. Jika tidak ada, trigger menetapkan nilai default `'Belum ditentukan'`.
 
-## **1. Pengenalan Stored Procedures**
+3. **Menggunakan Subqueries untuk Operasi Kompleks**
+   - **Apa itu Subquery?**
+     - Subquery adalah query di dalam query lain. Subquery dapat digunakan dalam klausa `SELECT`, `FROM`, `WHERE`, atau `HAVING` untuk melakukan operasi yang lebih kompleks atau untuk mengolah hasil query lain.
+   - **Mengapa Menggunakan Subquery?**
+     - Subqueries memungkinkan kalian untuk melakukan operasi lebih kompleks, seperti menghitung agregat pada subset data atau memilih data berdasarkan hasil dari query lain.
+   - **Contoh Subquery:**
+     - **Subquery di dalam `WHERE`:**
+       - Mencari siswa yang berada di kelas dengan lebih dari 20 siswa:
+       ```sql
+       SELECT Nama FROM Siswa
+       WHERE Kode_Kelas IN (
+           SELECT Kode_Kelas FROM Siswa
+           GROUP BY Kode_Kelas
+           HAVING COUNT(*) > 20
+       );
+       ```
+     - **Subquery di dalam `SELECT`:**
+       - Menampilkan nama siswa dan jumlah siswa di kelas mereka:
+       ```sql
+       SELECT Nama, (SELECT COUNT(*) FROM Siswa B WHERE B.Kode_Kelas = A.Kode_Kelas) AS Jumlah_Siswa
+       FROM Siswa A;
+       ```
 
-### **Apa Itu Stored Procedure?**
-Stored procedure adalah kumpulan perintah SQL yang disimpan dalam basis data dan dapat dijalankan kapan saja. Mereka sangat berguna untuk menyederhanakan dan mengotomatisasi tugas-tugas yang sering dilakukan.
+4. **Mengelola Performa dengan Stored Procedures dan Triggers**
+   - **Keuntungan Menggunakan Stored Procedures:**
+     - Stored procedures mengurangi lalu lintas jaringan karena hanya nama prosedur dan parameternya yang dikirim, bukan seluruh perintah SQL. Mereka juga meningkatkan keamanan karena validasi input dilakukan di server.
+   - **Manfaat Triggers dalam Basis Data:**
+     - Triggers membantu menjaga integritas data dan memungkinkan otomatisasi tugas yang terjadi saat data berubah, seperti mencatat log perubahan atau mengirim notifikasi.
 
-### **Fungsi Utama Stored Procedures:**
-- **Otomatisasi Tugas:** Mengurangi pengulangan perintah SQL dengan menyimpan logika di satu tempat.
-- **Keamanan:** Menyembunyikan logika bisnis dari pengguna akhir, memberikan kontrol lebih besar atas apa yang dieksekusi.
-- **Kinerja:** Stored procedures biasanya lebih cepat daripada menjalankan perintah SQL satu per satu, karena mereka dikompilasi sekali dan dapat digunakan berulang kali.
+#### **Praktikum Lengkap**
 
-### **Mengapa Stored Procedures Penting?**
-Bayangkan kalian sering perlu menghitung total penjualan mingguan. Alih-alih menulis query yang panjang setiap minggu, kalian bisa membuat stored procedure untuk melakukannya secara otomatis hanya dengan memanggilnya satu kali.
+1. **Latihan 1: Membuat dan Menggunakan Stored Procedures**
+   - **Membuat Stored Procedure**:
+     - Buat sebuah stored procedure untuk menambahkan data siswa baru ke dalam tabel `Siswa`.
+     ```sql
+     CREATE PROCEDURE TambahSiswa(
+         IN NIS INT,
+         IN Nama VARCHAR(100),
+         IN Kelas VARCHAR(10)
+     )
+     BEGIN
+         INSERT INTO Siswa (NIS, Nama, Kelas) VALUES (NIS, Nama, Kelas);
+     END;
+     ```
+     - **Penjelasan**: Stored procedure ini menerima tiga parameter (`NIS`, `Nama`, dan `Kelas`) dan menggunakannya untuk menambahkan baris baru ke tabel `Siswa`.
 
-## **2. Membuat dan Menggunakan Stored Procedures**
+   - **Memanggil Stored Procedure**:
+     - Setelah membuat stored procedure, panggil prosedur tersebut untuk menambahkan data siswa baru.
+     ```sql
+     CALL TambahSiswa(12350, 'Siti Nurhaliza', 'XI-IPA2');
+     ```
 
-### **Cara Membuat Stored Procedure:**
-Untuk membuat stored procedure, kalian perlu menggunakan perintah `CREATE PROCEDURE` diikuti dengan logika SQL yang ingin kalian jalankan.
+2. **Latihan 2: Membuat dan Menggunakan Triggers**
+   - **Membuat Trigger**:
+     - Buat trigger yang secara otomatis mengisi kolom `Kelas` dengan nilai default `'Belum ditentukan'` jika tidak ada nilai yang dimasukkan saat data baru ditambahkan ke tabel `Siswa`.
+     ```sql
+     CREATE TRIGGER BeforeInsertSiswa
+     BEFORE INSERT ON Siswa
+     FOR EACH ROW
+     BEGIN
+         IF NEW.Kelas IS NULL THEN
+             SET NEW.Kelas = 'Belum ditentukan';
+         END IF;
+     END;
+     ```
 
-**Contoh Dasar:**
-```sql
-CREATE PROCEDURE HitungTotalPenjualanMingguan()
-BEGIN
-    SELECT SUM(Harga_Total) FROM Penjualan WHERE Tanggal_Penjualan >= CURDATE() - INTERVAL 7 DAY;
-END;
-```
-- Stored procedure ini akan menghitung total penjualan selama seminggu terakhir.
+   - **Menggunakan Trigger**:
+     - Tambahkan data siswa tanpa mengisi kolom `Kelas` dan lihat bagaimana trigger otomatis mengisi nilai tersebut.
+     ```sql
+     INSERT INTO Siswa (NIS, Nama) VALUES (12351, 'Budi Santoso');
+     ```
 
-### **Menjalankan Stored Procedure:**
-Untuk menjalankan stored procedure yang sudah kalian buat, gunakan perintah `CALL`.
+3. **Latihan 3: Menggunakan Subqueries untuk Operasi Kompleks**
+   - **Subquery di dalam `WHERE`**:
+     - Temukan nama-nama siswa yang berada di kelas dengan lebih dari 20 siswa.
+     ```sql
+     SELECT Nama FROM Siswa
+     WHERE Kode_Kelas IN (
+         SELECT Kode_Kelas FROM Siswa
+         GROUP BY Kode_Kelas
+         HAVING COUNT(*) > 20
+     );
+     ```
 
-**Contoh:**
-```sql
-CALL HitungTotalPenjualanMingguan();
-```
+   - **Subquery di dalam `SELECT`**:
+     - Tampilkan nama siswa dan jumlah siswa di kelas mereka.
+     ```sql
+     SELECT Nama, (SELECT COUNT(*) FROM Siswa B WHERE B.Kode_Kelas = A.Kode_Kelas) AS Jumlah_Siswa
+     FROM Siswa A;
+     ```
 
-### **Menggunakan Parameter di Stored Procedures:**
-Stored procedures bisa menerima input dalam bentuk parameter, memungkinkan fleksibilitas lebih dalam penggunaan.
+#### **Diskusi dan Review**
 
-**Contoh dengan Parameter:**
-```sql
-CREATE PROCEDURE CariPelanggan(IN namaPelanggan VARCHAR(100))
-BEGIN
-    SELECT * FROM Pelanggan WHERE Nama = namaPelanggan;
-END;
-```
-- Stored procedure ini mencari pelanggan berdasarkan nama yang diberikan sebagai input.
-
-## **3. Pengenalan Triggers**
-
-### **Apa Itu Trigger?**
-Trigger adalah perintah SQL yang dieksekusi secara otomatis ketika suatu kejadian tertentu terjadi dalam basis data, seperti INSERT, UPDATE, atau DELETE. Triggers sering digunakan untuk menjaga integritas data atau untuk melakukan tindakan otomatis.
-
-### **Fungsi Utama Triggers:**
-- **Otomatisasi Tugas:** Menjalankan logika tertentu secara otomatis saat data dimanipulasi.
-- **Konsistensi Data:** Memastikan bahwa setiap perubahan data memenuhi aturan tertentu.
-- **Keamanan:** Membatasi atau memantau perubahan yang dilakukan pada data sensitif.
-
-### **Mengapa Triggers Penting?**
-Triggers berguna untuk mengelola perubahan yang dilakukan pada data. Misalnya, setiap kali ada pesanan baru ditambahkan, trigger bisa otomatis memperbarui stok barang.
-
-## **4. Membuat dan Menggunakan Triggers**
-
-### **Cara Membuat Trigger:**
-Untuk membuat trigger, gunakan perintah `CREATE TRIGGER` diikuti dengan logika SQL yang ingin dijalankan saat trigger tersebut dipicu.
-
-**Contoh Dasar:**
-```sql
-CREATE TRIGGER UpdateStok
-AFTER INSERT ON Pesanan
-FOR EACH ROW
-BEGIN
-    UPDATE Produk SET Stok = Stok - NEW.Jumlah WHERE ID_Produk = NEW.ID_Produk;
-END;
-```
-- Trigger ini akan mengurangi stok produk setiap kali pesanan baru ditambahkan.
-
-### **Jenis-Jenis Triggers:**
-- **BEFORE Trigger:** Dijalankan sebelum operasi INSERT, UPDATE, atau DELETE dilakukan.
-- **AFTER Trigger:** Dijalankan setelah operasi INSERT, UPDATE, atau DELETE dilakukan.
-
-### **Contoh Kasus Penggunaan Triggers:**
-Misalnya, kalian ingin memastikan bahwa tidak ada pesanan yang bisa dibuat jika stok produk habis. Kalian bisa membuat `BEFORE INSERT` trigger yang mengecek stok sebelum pesanan diproses.
-
-## **5. Contoh Implementasi dalam Skenario Nyata**
-
-### **Skenario: Sistem Manajemen Gudang**
-
-**Stored Procedure:**
-Kalian memiliki stored procedure untuk memeriksa stok minimum produk setiap hari:
-```sql
-CREATE PROCEDURE CekStokMin()
-BEGIN
-    SELECT * FROM Produk WHERE Stok < 10;
-END;
-```
-- Stored procedure ini membantu manajer gudang memastikan tidak ada produk yang hampir habis tanpa disadari.
-
-**Trigger:**
-Trigger yang otomatis mengurangi stok produk ketika pesanan ditambahkan:
-```sql
-CREATE TRIGGER KurangiStok
-AFTER INSERT ON Pesanan
-FOR EACH ROW
-BEGIN
-    UPDATE Produk SET Stok = Stok - NEW.Jumlah WHERE ID_Produk = NEW.ID_Produk;
-END;
-```
-- Trigger ini memastikan stok selalu terupdate tanpa harus dilakukan manual oleh staf gudang.
-
-### **Mengapa Implementasi Ini Penting?**
-Dalam sistem manajemen gudang, otomatisasi seperti ini sangat penting untuk efisiensi dan mencegah kesalahan manusia, terutama ketika kalian berurusan dengan inventaris yang besar dan beragam.
-
----
-
-### **Aktivitas**
-
-1. **Diskusi Kelompok:**
-    - **Topik:** Bagaimana kalian bisa menggunakan stored procedures dan triggers untuk mengotomatisasi tugas-tugas rutin dalam basis data kalian?
-    - **Tujuan:** Memahami peran stored procedures dan triggers dalam meningkatkan efisiensi dan menjaga integritas data dalam basis data.
-
-2. **Latihan:**
-    - **Tugas:** Buat stored procedure untuk melakukan kalkulasi tertentu di basis data kalian dan buat trigger untuk menangani otomatisasi tugas yang sering terjadi. Uji coba dengan data nyata untuk melihat bagaimana keduanya bekerja.
-    - **Output:** Kode SQL untuk stored procedures dan triggers, serta laporan singkat tentang bagaimana mereka mempengaruhi operasi basis data kalian.
+- **Mengapa Stored Procedures dan Triggers Penting?**
+  - **Diskusi:** Stored procedures memungkinkan eksekusi otomatis dari sekumpulan perintah SQL yang sering digunakan, meningkatkan efisiensi dan keamanan. Triggers, di sisi lain, memungkinkan otomatisasi tugas yang terjadi saat data diubah, memastikan konsistensi dan keandalan data.
+  
+- **Bagaimana Subqueries Membantu dalam Operasi Kompleks?**
+  - **Diskusi:** Subqueries memungkinkan kalian untuk melakukan query di dalam query, memungkinkan operasi yang lebih kompleks seperti pengelompokan dan penyaringan data berdasarkan hasil query lain. Ini adalah alat yang sangat berguna ketika kalian membutuhkan fleksibilitas dalam pengolahan data.
 
 ---
 [⏮ Transaksi dan Optimasi Query](../7-transaksi-dan-optimasi-query/README.md) || [Home 🏘](../README.md) || [Case dan NoSQL ⏭](../9-case-dan-nosql/README.md)

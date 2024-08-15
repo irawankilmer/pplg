@@ -1,183 +1,276 @@
 # **Bab 5 - Data Manipulation Language (DML)**
+#### **Tujuan Pembelajaran**
+Pada akhir sesi ini, kalian akan mampu:
+- Menggunakan DML untuk menambah, mengubah, menghapus, dan menampilkan data dalam basis data.
+- Memahami penggunaan operator logika (`AND`, `OR`, `NOT`), pencarian pola (`LIKE`), dan pengurutan data (`ORDER BY`).
+- Melakukan manipulasi data dengan kondisi kompleks menggunakan `IN`, `BETWEEN`, dan subqueries (`SUBQUERIES`).
 
-## **Tujuan Pembelajaran**
-Setelah pertemuan ini, kalian diharapkan:
-- Memahami fungsi dan penggunaan DML dalam SQL untuk mengelola data dalam tabel.
-- Mampu melakukan operasi dasar seperti SELECT, INSERT, UPDATE, dan DELETE.
-- Memahami cara menghubungkan tabel menggunakan JOIN dan memanipulasi data secara efisien.
+#### **Materi Lengkap:**
 
-## **Materi yang Akan Dibahas**
-1. Pengenalan Data Manipulation Language (DML)
-2. Perintah SELECT untuk Mengambil Data
-3. Perintah INSERT untuk Menambahkan Data
-4. Perintah UPDATE untuk Mengubah Data
-5. Perintah DELETE untuk Menghapus Data
-6. Penggunaan JOIN untuk Menghubungkan Tabel
+1. **Pengertian Data Manipulation Language (DML):**
+   - **Apa itu DML?**
+     - Data Manipulation Language (DML) adalah bagian dari SQL yang digunakan untuk memanipulasi data dalam tabel basis data. DML memungkinkan kalian untuk melakukan operasi seperti menambah, memperbarui, menghapus, dan menampilkan data. Perintah DML sering digunakan dalam aplikasi yang memerlukan interaksi dinamis dengan basis data, seperti sistem manajemen informasi, e-commerce, dan aplikasi berbasis web lainnya.
+
+   - **Fungsi Utama DML:**
+     - **INSERT**: Menambahkan baris data baru ke dalam tabel.
+     - **UPDATE**: Mengubah data yang sudah ada dalam tabel.
+     - **DELETE**: Menghapus data dari tabel.
+     - **SELECT**: Mengambil dan menampilkan data dari tabel.
+
+   - **Mengapa DML Penting?**
+     - DML merupakan dasar dari interaksi sehari-hari dengan basis data. Tanpa DML, kita tidak bisa memanipulasi data dalam basis data secara efisien. Operasi seperti menambah pelanggan baru ke dalam sistem, memperbarui informasi produk, atau menghapus data yang sudah tidak relevan adalah semua contoh penggunaan DML.
+
+2. **Perintah Dasar DML:**
+
+   - **INSERT: Menambah Data ke dalam Tabel**
+     - **Menggunakan INSERT untuk Menambahkan Baris Baru:**
+       - Perintah `INSERT` digunakan untuk menambahkan satu atau lebih baris data ke dalam tabel.
+       ```sql
+       INSERT INTO Siswa (NIS, Nama, Kelas, Tahun_Masuk)
+       VALUES (12345, 'Ahmad Zaky', 'XI-RPL1', 2023);
+       ```
+       - **Detail Perintah:**
+         - `Siswa`: Nama tabel tempat data akan ditambahkan.
+         - `NIS, Nama, Kelas, Tahun_Masuk`: Kolom-kolom dalam tabel di mana data baru akan dimasukkan.
+         - `VALUES`: Menyediakan nilai-nilai yang akan dimasukkan ke dalam kolom yang disebutkan.
+
+     - **Menambahkan Beberapa Baris Sekaligus:**
+       - Kalian juga bisa menambahkan beberapa baris data sekaligus dengan satu perintah `INSERT`.
+       ```sql
+       INSERT INTO Siswa (NIS, Nama, Kelas, Tahun_Masuk)
+       VALUES 
+       (12346, 'Suci Aulia Agniani', 'XI-RPL1', 2023),
+       (12347, 'Amanda', 'XI-RPL2', 2023);
+       ```
+
+   - **UPDATE: Mengubah Data yang Ada**
+     - **Menggunakan UPDATE untuk Memperbarui Data:**
+       - Perintah `UPDATE` digunakan untuk mengubah data dalam tabel. Kalian bisa memperbarui satu atau lebih kolom dalam satu atau lebih baris data.
+       ```sql
+       UPDATE Siswa
+       SET Nama = 'Ahmad Zaky Alfarizi', Kelas = 'XI-RPL2'
+       WHERE NIS = 12345;
+       ```
+       - **Detail Perintah:**
+         - `SET`: Menentukan kolom mana yang akan diubah dan nilai baru apa yang akan diberikan.
+         - `WHERE`: Menentukan kondisi untuk memilih baris yang akan diubah. Jika `WHERE` tidak disertakan, semua baris dalam tabel akan diperbarui.
+
+   - **DELETE: Menghapus Data dari Tabel**
+     - **Menggunakan DELETE untuk Menghapus Baris:**
+       - Perintah `DELETE` digunakan untuk menghapus satu atau lebih baris data dari tabel.
+       ```sql
+       DELETE FROM Siswa
+       WHERE NIS = 12345;
+       ```
+       - **Detail Perintah:**
+         - `FROM`: Menentukan tabel mana yang akan dihapus datanya.
+         - `WHERE`: Menentukan kondisi untuk memilih baris yang akan dihapus. Jika `WHERE` tidak disertakan, semua baris dalam tabel akan dihapus.
+
+   - **SELECT: Menampilkan Data dari Tabel**
+     - **Menggunakan SELECT untuk Mengambil Data:**
+       - Perintah `SELECT` digunakan untuk mengambil data dari satu atau lebih tabel dan menampilkannya.
+       ```sql
+       SELECT * FROM Siswa;
+       ```
+       - **Detail Perintah:**
+         - `*`: Mengambil semua kolom dari tabel. Kalian juga bisa menentukan kolom spesifik untuk diambil.
+         - `FROM`: Menentukan tabel mana yang akan diambil datanya.
+
+3. **Operator Logika dalam DML:**
+
+   - **AND, OR, NOT:**
+     - Operator logika digunakan untuk membuat kondisi `WHERE` yang lebih kompleks.
+     - **AND**: Menggabungkan dua atau lebih kondisi, di mana semua kondisi harus benar.
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Kelas = 'XI-RPL1' AND Tahun_Masuk = 2023;
+       ```
+     - **OR**: Menggabungkan dua atau lebih kondisi, di mana salah satu kondisi harus benar.
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Kelas = 'XI-RPL1' OR Kelas = 'XI-RPL2';
+       ```
+     - **NOT**: Digunakan untuk menegasikan kondisi.
+       ```sql
+       SELECT * FROM Siswa
+       WHERE NOT Kelas = 'XI-RPL1';
+       ```
+
+4. **Penggunaan `LIKE` dalam DML:**
+
+   - **LIKE untuk Pencarian Pola:**
+     - Operator `LIKE` digunakan untuk mencari pola dalam teks. Biasanya digunakan dengan karakter `%` untuk mencocokkan bagian dari string.
+     - **Contoh:**
+       - Mencari semua siswa yang namanya dimulai dengan 'A':
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Nama LIKE 'A%';
+       ```
+       - Mencari semua siswa yang namanya berisi 'art':
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Nama LIKE '%art%';
+       ```
+
+5. **Pengurutan Data dengan `ORDER BY`:**
+
+   - **ORDER BY untuk Mengurutkan Hasil:**
+     - Perintah `ORDER BY` digunakan untuk mengurutkan hasil query berdasarkan satu atau lebih kolom dalam urutan menaik (`ASC`) atau menurun (`DESC`).
+     - **Contoh:**
+       - Mengurutkan siswa berdasarkan `Nama` dalam urutan abjad:
+       ```sql
+       SELECT * FROM Siswa
+       ORDER BY Nama ASC;
+       ```
+       - Mengurutkan siswa berdasarkan `Tahun_Masuk` dari yang terbaru:
+       ```sql
+       SELECT * FROM Siswa
+       ORDER BY Tahun_Masuk DESC;
+       ```
+
+6. **Penggunaan `IN` dan `BETWEEN`:**
+
+   - **IN untuk Kondisi dalam Daftar:**
+     - Operator `IN` digunakan untuk memeriksa apakah nilai dalam kolom sesuai dengan salah satu nilai dalam daftar.
+     - **Contoh:**
+       - Mencari siswa yang berada di kelas `XI-RPL1` atau `XI-RPL2`:
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Kelas IN ('XI-RPL1', 'XI-RPL2');
+       ```
+
+   - **BETWEEN untuk Rentang Nilai:**
+     - Operator `BETWEEN` digunakan untuk memilih nilai dalam rentang tertentu.
+     - **Contoh:**
+       - Mencari siswa yang masuk antara tahun 2020 dan 2023:
+       ```sql
+       SELECT * FROM Siswa
+       WHERE Tahun_Masuk BETWEEN 2020 AND 2023;
+       ```
+
+7. **Penggunaan Subqueries (`SUBQUERIES`):**
+
+   - **Apa itu Subqueries?**
+     - Subqueries adalah query di dalam query lain. Mereka digunakan untuk melakukan operasi kompleks, seperti mengambil data dari satu tabel berdasarkan hasil dari query lain.
+     - **Contoh:**
+       - Mencari siswa yang berada di kelas yang memiliki lebih dari 10 siswa:
+       ```sql
+       SELECT Nama FROM Siswa
+       WHERE Kode_Kelas IN (
+           SELECT Kode_Kelas FROM Siswa
+           GROUP BY Kode_Kelas
+           HAVING COUNT(*) > 10
+       );
+       ```
+     - Dalam contoh ini, subquery pertama kali menghitung jumlah siswa di setiap kelas, dan kemudian query utama menggunakan hasil ini untuk mencari siswa yang berada di kelas yang memiliki lebih dari 10 siswa.
+
+#### **Praktikum Lengkap:**
+
+1. **Latihan 1: Menambah Data ke Tabel**
+   - Tambahkan data baru ke dalam tabel `Siswa` dengan beberapa baris siswa baru. Gunakan perintah `INSERT` dan tambahkan minimal 3 siswa.
+
+   **SQL Query:**
+```sql
+   INSERT INTO Siswa (NIS, Nama, Kelas, Tahun_Masuk)
+   VALUES 
+   (12346, 'Suci Aulia Agniani', 'XI-RPL1', 2023),
+   (12347, 'Amanda', 'XI-RPL2', 2023),
+   (12348, 'Lisnawati', 'XI-IPA3', 2023);
+```
+
+- **Penjelasan:**
+  - Latihan ini melibatkan penambahan beberapa baris data ke dalam tabel `Siswa`. Tujuannya adalah agar kalian terbiasa dengan perintah `INSERT` dan memahami bagaimana data ditambahkan ke dalam basis data dengan beberapa baris sekaligus.
+
+2. **Latihan 2: Memperbarui Data yang Ada**
+   - Ubah data siswa dengan NIS 12346, misalnya mengubah `Kelas` dari 'XI-RPL1' menjadi 'XI-RPL2'.
+
+   **SQL Query:**
+   ```sql
+   UPDATE Siswa
+   SET Kelas = 'XI-RPL2'
+   WHERE NIS = 12346;
+   ```
+
+- **Penjelasan:**
+  - Dalam latihan ini, kalian akan belajar bagaimana menggunakan perintah `UPDATE` untuk memperbarui data yang sudah ada. Perintah ini sangat berguna ketika kalian perlu mengoreksi data atau memindahkan data dari satu kategori ke kategori lainnya dalam tabel.
+
+3. **Latihan 3: Menghapus Data dari Tabel**
+   - Hapus data siswa dengan NIS 12347 dari tabel `Siswa`.
+
+   **SQL Query:**
+   ```sql
+   DELETE FROM Siswa
+   WHERE NIS = 12347;
+   ```
+
+- **Penjelasan:**
+  - Latihan ini akan mengajarkan kalian bagaimana menghapus data dari tabel. Perintah `DELETE` sangat penting ketika kalian perlu menghapus data yang tidak lagi diperlukan atau ketika ada kesalahan yang perlu diperbaiki.
+
+4. **Latihan 4: Menggunakan Operator Logika dan `LIKE`**
+   - Temukan semua siswa yang berada di kelas 'XI-RPL2' dan yang namanya dimulai dengan 'D'.
+
+   **SQL Query:**
+   ```sql
+   SELECT * FROM Siswa
+   WHERE Kelas = 'XI-RPL2' AND Nama LIKE 'D%';
+   ```
+
+- **Penjelasan:**
+  - Dalam latihan ini, kalian akan menggunakan operator logika `AND` dan operator `LIKE` untuk mencari data yang memenuhi beberapa kriteria. Ini membantu mempersempit hasil pencarian dan menemukan data yang lebih spesifik.
+
+5. **Latihan 5: Mengurutkan Data dengan `ORDER BY`**
+   - Urutkan siswa berdasarkan `Nama` secara alfabetis dalam urutan menaik.
+
+   **SQL Query:**
+   ```sql
+   SELECT * FROM Siswa
+   ORDER BY Nama ASC;
+   ```
+
+- **Penjelasan:**
+  - Latihan ini mengajarkan cara mengurutkan hasil query menggunakan `ORDER BY`. Ini sangat berguna ketika kalian perlu menampilkan data dalam urutan tertentu, misalnya alfabetis atau berdasarkan nilai numerik.
+
+6. **Latihan 6: Menggunakan `IN` dan `BETWEEN` untuk Kondisi Khusus**
+   - Cari semua siswa yang berada di kelas 'XI-RPL1' atau 'XI-RPL2' dan yang masuk antara tahun 2021 hingga 2023.
+
+   **SQL Query:**
+   ```sql
+   SELECT * FROM Siswa
+   WHERE Kelas IN ('XI-RPL1', 'XI-RPL2') AND Tahun_Masuk BETWEEN 2021 AND 2023;
+   ```
+
+- **Penjelasan:**
+  - Latihan ini melibatkan penggunaan `IN` dan `BETWEEN` untuk memilih data berdasarkan beberapa kondisi sekaligus. Ini membantu dalam pencarian data yang lebih spesifik dan sesuai dengan kriteria yang lebih kompleks.
+
+7. **Latihan 7: Menggunakan Subqueries (`SUBQUERIES`)**
+   - Temukan nama siswa yang berada di kelas dengan lebih dari 10 siswa.
+
+   **SQL Query:**
+   ```sql
+   SELECT Nama FROM Siswa
+   WHERE Kode_Kelas IN (
+       SELECT Kode_Kelas FROM Siswa
+       GROUP BY Kode_Kelas
+       HAVING COUNT(*) > 10
+   );
+   ```
+
+- **Penjelasan:**
+  - Dalam latihan ini, kalian akan belajar menggunakan subqueries untuk melakukan operasi yang lebih kompleks. Subqueries memungkinkan kalian melakukan query dalam query, yang berguna untuk menyaring data berdasarkan hasil query lain.
+
+#### **Diskusi dan Review:**
+
+- **Mengapa DML Penting?**
+  - **Diskusi:** DML memungkinkan kita untuk berinteraksi secara langsung dengan data dalam basis data. Operasi seperti menambah, memperbarui, dan menghapus data sangat penting dalam aplikasi yang dinamis. Tanpa DML, kita tidak bisa mengubah data sesuai kebutuhan atau kondisi saat ini.
+
+- **Kapan Menggunakan Operator Logika?**
+  - **Diskusi:** Operator logika seperti `AND`, `OR`, dan `NOT` memungkinkan kita membuat kondisi yang lebih kompleks dalam query. Ini sangat berguna ketika kita perlu menyaring data dengan kriteria yang lebih dari satu. Misalnya, kalian bisa mencari semua siswa yang berada di kelas tertentu dan yang namanya dimulai dengan huruf tertentu.
+
+- **Pentingnya Pengurutan Data dengan `ORDER BY`:**
+  - **Diskusi:** Mengurutkan data membantu kita untuk menampilkan informasi dalam urutan yang lebih logis atau sesuai kebutuhan pengguna. Misalnya, mengurutkan daftar siswa berdasarkan nama atau tahun masuk.
+
+- **Subqueries untuk Operasi Kompleks:**
+  - **Diskusi:** Subqueries sangat berguna ketika kalian perlu melakukan query yang lebih kompleks. Misalnya, mencari siswa yang berada di kelas dengan jumlah siswa tertentu atau berdasarkan hasil dari tabel lain.
 
 ---
-
-## **1. Pengenalan Data Manipulation Language (DML)**
-
-### **Apa Itu DML?**
-DML, atau **Data Manipulation Language**, adalah bagian dari SQL yang digunakan untuk memanipulasi data di dalam tabel. Jika DDL digunakan untuk mendefinisikan struktur basis data, DML digunakan untuk bekerja dengan data di dalam struktur tersebut.
-
-### **Fungsi Utama DML:**
-- **Mengambil Data:** Kalian bisa mencari dan menampilkan data yang ada dalam tabel.
-- **Menambah Data:** Menambahkan data baru ke dalam tabel.
-- **Mengubah Data:** Mengupdate atau mengedit data yang sudah ada.
-- **Menghapus Data:** Menghapus data yang sudah tidak diperlukan lagi.
-
-**Contoh DML dalam Kehidupan Sehari-hari:**
-Bayangkan kalian bekerja di sebuah perpustakaan digital. DML adalah alat yang kalian gunakan untuk mencari buku, menambahkan buku baru, mengedit detail buku, atau menghapus buku yang sudah tidak relevan.
-
-## **2. Perintah SELECT untuk Mengambil Data**
-
-### **Perintah SELECT:**
-Perintah `SELECT` adalah perintah yang paling sering digunakan dalam SQL. Perintah ini digunakan untuk mengambil data dari satu atau lebih tabel.
-
-**Contoh Dasar:**
-```sql
-SELECT * FROM Pelanggan;
-```
-- `*` berarti kita ingin mengambil semua kolom dari tabel `Pelanggan`.
-
-### **Menggunakan WHERE untuk Memfilter Data:**
-Untuk mengambil data yang lebih spesifik, kalian bisa menggunakan klausa `WHERE`.
-
-**Contoh:**
-```sql
-SELECT Nama, Alamat FROM Pelanggan WHERE Kota = 'Jakarta';
-```
-- Ini akan menampilkan nama dan alamat pelanggan yang berada di Jakarta.
-
-### **Menggunakan Fungsi Agregat:**
-SQL memiliki fungsi agregat yang bisa digunakan untuk menghitung nilai, seperti `COUNT`, `SUM`, `AVG`, `MAX`, dan `MIN`.
-
-**Contoh:**
-```sql
-SELECT COUNT(*) FROM Pelanggan WHERE Kota = 'Jakarta';
-```
-- Ini akan menghitung jumlah pelanggan yang berada di Jakarta.
-
-### **Mengurutkan dan Mengelompokkan Data:**
-- **ORDER BY:** Untuk mengurutkan data.
-  ```sql
-  SELECT * FROM Pelanggan ORDER BY Nama ASC;
-  ```
-- **GROUP BY:** Untuk mengelompokkan data.
-  ```sql
-  SELECT Kota, COUNT(*) FROM Pelanggan GROUP BY Kota;
-  ```
-
-## **3. Perintah INSERT untuk Menambahkan Data**
-
-### **Perintah INSERT:**
-Perintah `INSERT` digunakan untuk menambahkan data baru ke dalam tabel.
-
-**Contoh Dasar:**
-```sql
-INSERT INTO Pelanggan (Nama, Alamat, Kota) VALUES ('Andi', 'Jl. Merdeka', 'Jakarta');
-```
-- Ini menambahkan data baru ke dalam tabel `Pelanggan`.
-
-### **Menambahkan Beberapa Baris Sekaligus:**
-Kalian juga bisa menambahkan beberapa baris data sekaligus.
-
-**Contoh:**
-```sql
-INSERT INTO Pelanggan (Nama, Alamat, Kota) VALUES 
-('Budi', 'Jl. Sudirman', 'Bandung'),
-('Citra', 'Jl. Thamrin', 'Surabaya');
-```
-
-## **4. Perintah UPDATE untuk Mengubah Data**
-
-### **Perintah UPDATE:**
-Perintah `UPDATE` digunakan untuk mengubah data yang sudah ada dalam tabel.
-
-**Contoh Dasar:**
-```sql
-UPDATE Pelanggan SET Alamat = 'Jl. Baru' WHERE ID_Pelanggan = 1;
-```
-- Ini akan mengubah alamat pelanggan dengan ID 1 menjadi "Jl. Baru".
-
-### **Mengubah Data Secara Massal:**
-Kalian bisa mengubah data beberapa baris sekaligus dengan menggunakan klausa `WHERE` yang lebih umum.
-
-**Contoh:**
-```sql
-UPDATE Pelanggan SET Kota = 'Bandung' WHERE Kota = 'Jakarta';
-```
-
-## **5. Perintah DELETE untuk Menghapus Data**
-
-### **Perintah DELETE:**
-Perintah `DELETE` digunakan untuk menghapus data dari tabel.
-
-**Contoh Dasar:**
-```sql
-DELETE FROM Pelanggan WHERE ID_Pelanggan = 1;
-```
-- Ini akan menghapus pelanggan dengan ID 1 dari tabel `Pelanggan`.
-
-### **Hati-Hati dengan DELETE:**
-Jika kalian tidak menggunakan klausa `WHERE`, maka semua data dalam tabel bisa terhapus!
-
-**Contoh Berbahaya:**
-```sql
-DELETE FROM Pelanggan;
-```
-- Ini akan menghapus semua data dalam tabel `Pelanggan`. Jadi, selalu hati-hati saat menggunakan DELETE!
-
-## **6. Penggunaan JOIN untuk Menghubungkan Tabel**
-
-### **Apa Itu JOIN?**
-`JOIN` digunakan untuk menggabungkan baris dari dua atau lebih tabel berdasarkan kolom terkait di antara mereka. Ada beberapa jenis `JOIN` yang bisa kalian gunakan.
-
-### **Jenis-Jenis JOIN:**
-
-1. **INNER JOIN:** Menggabungkan baris yang memiliki kecocokan di kedua tabel.
-   ```sql
-   SELECT Pesanan.ID_Pesanan, Pelanggan.Nama FROM Pesanan 
-   INNER JOIN Pelanggan ON Pesanan.ID_Pelanggan = Pelanggan.ID_Pelanggan;
-   ```
-
-2. **LEFT JOIN:** Menggabungkan semua baris dari tabel kiri, dan baris yang cocok dari tabel kanan.
-   ```sql
-   SELECT Pelanggan.Nama, Pesanan.ID_Pesanan FROM Pelanggan 
-   LEFT JOIN Pesanan ON Pelanggan.ID_Pelanggan = Pesanan.ID_Pelanggan;
-   ```
-
-3. **RIGHT JOIN:** Kebalikan dari LEFT JOIN; menggabungkan semua baris dari tabel kanan.
-   ```sql
-   SELECT Pelanggan.Nama, Pesanan.ID_Pesanan FROM Pelanggan 
-   RIGHT JOIN Pesanan ON Pelanggan.ID_Pelanggan = Pesanan.ID_Pelanggan;
-   ```
-
-4. **FULL JOIN:** Menggabungkan semua baris ketika ada kecocokan di salah satu tabel.
-   ```sql
-   SELECT Pelanggan.Nama, Pesanan.ID_Pesanan FROM Pelanggan 
-   FULL OUTER JOIN Pesanan ON Pelanggan.ID_Pelanggan = Pesanan.ID_Pelanggan;
-   ```
-
-### **Contoh Skenario:**
-Misalnya kalian punya dua tabel, `Pelanggan` dan `Pesanan`. Dengan `JOIN`, kalian bisa menggabungkan data untuk melihat siapa yang memesan apa:
-```sql
-SELECT Pelanggan.Nama, Pesanan.Tanggal FROM Pelanggan 
-INNER JOIN Pesanan ON Pelanggan.ID_Pelanggan = Pesanan.ID_Pelanggan;
-```
-
----
-
-### **Aktivitas**
-
-1. **Diskusi Kelompok:**
-    - **Topik:** Bagaimana kalian bisa memastikan bahwa operasi DML tidak merusak integritas data dalam basis data?
-    - **Tujuan:** Memahami pentingnya menggunakan perintah DML dengan benar untuk menjaga integritas dan konsistensi data.
-
-2. **Latihan:**
-    - **Tugas:** Gunakan DML untuk mengisi tabel dengan data, memperbarui beberapa record, menghapus record yang tidak diperlukan, dan menggabungkan tabel menggunakan JOIN.
-    - **Output:** Kode SQL dan hasil query yang menunjukkan operasi DML yang kalian lakukan.
-
----
-[⏮ DDL](../4-ddl/README.md) || [Home 🏘](../README.md) || [DML ⏭](../6-dcl/README.md)
+[⏮ DDL](../4-ddl/README.md) || [Home 🏘](../README.md) || [DML Lanjutan(JOIN) ⏭](../5-dml-lanjutan-join/README.md)

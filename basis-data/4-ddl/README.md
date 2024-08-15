@@ -1,152 +1,225 @@
 # **Bab 4 - Data Definition Language (DDL)**
+#### **Tujuan Pembelajaran**
+Pada akhir sesi ini, kalian akan mampu:
+- Menggunakan DDL untuk membuat, mengubah, dan menghapus struktur tabel dan basis data.
+- Menerapkan berbagai constraints (`PRIMARY KEY`, `FOREIGN KEY`, `NOT NULL`, `UNIQUE`, `CHECK`, `DEFAULT`) dalam desain tabel.
+- Memahami konsep dan penerapan indeks (`INDEX`) untuk optimasi kinerja query dalam basis data.
 
-## **Tujuan Pembelajaran**
-Setelah pertemuan ini, kalian diharapkan:
-- Memahami fungsi dan penggunaan DDL dalam SQL untuk mengelola struktur basis data.
-- Mampu membuat, mengubah, dan menghapus tabel serta menerapkan constraint seperti primary key dan foreign key.
-- Familiar dengan bagaimana DDL digunakan untuk membangun fondasi basis data yang kuat dan terstruktur.
+#### **Materi Lengkap:**
 
-## **Materi yang Akan Dibahas**
-1. Pengenalan Data Definition Language (DDL)
-2. Perintah CREATE untuk Membuat Tabel dan Menentukan Tipe Data
-3. Perintah ALTER untuk Mengubah Struktur Tabel
-4. Perintah DROP untuk Menghapus Tabel
-5. Penerapan Constraint: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK
+1. **Pengertian Data Definition Language (DDL):**
+   - **Apa itu DDL?**
+     - Data Definition Language (DDL) adalah bagian dari SQL yang berfungsi untuk mendefinisikan dan mengelola struktur dari objek-objek dalam basis data seperti tabel, indeks, dan skema. Perintah-perintah DDL tidak hanya menentukan bagaimana data disimpan tetapi juga memastikan integritas data dan kinerja yang optimal melalui constraints dan indeks.
 
----
+   - **Fungsi Utama DDL:**
+     - **CREATE**: Digunakan untuk membuat objek baru dalam basis data seperti tabel, indeks, dan basis data itu sendiri.
+     - **ALTER**: Digunakan untuk mengubah struktur objek yang sudah ada, seperti menambah atau menghapus kolom dalam tabel.
+     - **DROP**: Digunakan untuk menghapus objek dari basis data, seperti tabel atau basis data itu sendiri.
 
-## **1. Pengenalan Data Definition Language (DDL)**
+   - **Mengapa DDL Penting?**
+     - DDL memungkinkan desainer basis data untuk menentukan bagaimana data akan disusun, diakses, dan diatur. Tanpa DDL, basis data akan kehilangan struktur dan integritasnya, yang dapat menyebabkan kesalahan data dan performa yang buruk.
 
-### **Apa Itu DDL?**
-DDL, atau **Data Definition Language**, adalah bagian dari SQL yang digunakan untuk mendefinisikan dan mengelola struktur basis data. DDL mencakup perintah-perintah untuk membuat, mengubah, dan menghapus objek dalam basis data seperti tabel, indeks, dan views.
+2. **Perintah Dasar DDL:**
 
-### **Fungsi Utama DDL:**
-- **Membangun Struktur:** DDL digunakan untuk menciptakan tabel-tabel yang akan menyimpan data kalian.
-- **Menyesuaikan Struktur:** Mengubah struktur tabel jika ada kebutuhan untuk menambah atau mengubah kolom.
-- **Menghapus Struktur:** Menghapus tabel atau objek lain yang sudah tidak diperlukan.
+   - **CREATE: Membuat Objek Basis Data**
+     - **CREATE DATABASE**: Membuat basis data baru.
+       ```sql
+       CREATE DATABASE Sekolah;
+       ```
+     - **CREATE TABLE**: Membuat tabel baru dalam basis data dengan mendefinisikan kolom dan tipe datanya.
+       ```sql
+       CREATE TABLE Siswa (
+           NIS INT PRIMARY KEY,
+           Nama VARCHAR(100) NOT NULL,
+           Kelas VARCHAR(10),
+           Tahun_Masuk YEAR
+       );
+       ```
+       - **Detail Kolom:**
+         - `NIS`: Nomor Induk Siswa, tipe data `INT`, ditetapkan sebagai `PRIMARY KEY` yang berarti setiap nilai harus unik dan tidak boleh kosong.
+         - `Nama`: Nama siswa, tipe data `VARCHAR(100)` yang artinya string dengan panjang maksimal 100 karakter, dan tidak boleh kosong (`NOT NULL`).
+         - `Kelas`: Kelas siswa, tipe data `VARCHAR(10)` untuk menyimpan nama kelas.
+         - `Tahun_Masuk`: Tahun masuk siswa, tipe data `YEAR`.
 
-### **Contoh DDL dalam Kehidupan Sehari-hari:**
-Bayangkan kalian sedang membangun sebuah rumah. DDL ini seperti peta dan alat yang kalian gunakan untuk menentukan di mana dinding, pintu, dan jendela akan ditempatkan. Kalian membuat struktur dasar dari sesuatu yang nantinya akan diisi dengan data, sama seperti kalian mengisi rumah dengan furnitur setelah bangunan selesai.
+   - **ALTER: Mengubah Struktur Tabel**
+     - **Menambahkan Kolom Baru:**
+       - Kadang-kadang, setelah tabel dibuat, kita perlu menambahkan kolom baru. Ini bisa dilakukan dengan perintah `ALTER`.
+       ```sql
+       ALTER TABLE Siswa ADD Alamat VARCHAR(255);
+       ```
+     - **Mengubah Tipe Data Kolom:**
+       - Jika tipe data dari kolom perlu diubah, kita bisa menggunakan `ALTER` dengan `MODIFY`.
+       ```sql
+       ALTER TABLE Siswa MODIFY Kelas VARCHAR(15);
+       ```
+     - **Menghapus Kolom:**
+       - Untuk menghapus kolom yang tidak lagi diperlukan.
+       ```sql
+       ALTER TABLE Siswa DROP COLUMN Alamat;
+       ```
 
-## **2. Perintah CREATE untuk Membuat Tabel dan Menentukan Tipe Data**
+   - **DROP: Menghapus Objek Basis Data**
+     - **Menghapus Tabel:**
+       - Menghapus tabel dari basis data secara permanen.
+       ```sql
+       DROP TABLE Siswa;
+       ```
+     - **Menghapus Basis Data:**
+       - Menghapus seluruh basis data, beserta semua tabel dan data yang ada di dalamnya.
+       ```sql
+       DROP DATABASE Sekolah;
+       ```
 
-### **Perintah CREATE:**
-Perintah `CREATE` digunakan untuk membuat objek baru dalam basis data. Objek yang paling umum dibuat dengan DDL adalah tabel.
+3. **Constraints dalam DDL:**
 
-**Contoh Membuat Tabel:**
+   Constraints adalah aturan yang diterapkan pada kolom untuk memastikan integritas dan validitas data dalam basis data. Berikut adalah beberapa constraints penting yang sering digunakan:
+
+   - **PRIMARY KEY:**
+     - Kombinasi unik dari kolom yang mengidentifikasi setiap baris dalam tabel secara unik.
+     - **Contoh:**
+       ```sql
+       CREATE TABLE Siswa (
+           NIS INT PRIMARY KEY,
+           Nama VARCHAR(100)
+       );
+       ```
+     - Sebuah tabel hanya bisa memiliki satu `PRIMARY KEY`, dan kolom yang ditetapkan sebagai `PRIMARY KEY` tidak boleh mengandung nilai duplikat atau kosong.
+
+   - **FOREIGN KEY:**
+     - Menghubungkan dua tabel dengan menjadikan satu kolom sebagai referensi terhadap `PRIMARY KEY` di tabel lain. Ini menjaga konsistensi antar tabel.
+     - **Contoh:**
+       ```sql
+       CREATE TABLE Kelas (
+           Kode_Kelas VARCHAR(10) PRIMARY KEY,
+           Nama_Kelas VARCHAR(50)
+       );
+
+       CREATE TABLE Siswa (
+           NIS INT PRIMARY KEY,
+           Nama VARCHAR(100),
+           Kode_Kelas VARCHAR(10),
+           FOREIGN KEY (Kode_Kelas) REFERENCES Kelas(Kode_Kelas)
+       );
+       ```
+     - `FOREIGN KEY` memastikan bahwa nilai dalam kolom tertentu harus sesuai dengan nilai yang ada di kolom `PRIMARY KEY` tabel lain, menjaga integritas relasi antar tabel.
+
+   - **NOT NULL:**
+     - Mencegah kolom menerima nilai `NULL`, memastikan bahwa setiap baris memiliki nilai untuk kolom tersebut.
+     - **Contoh:**
+       ```sql
+       ALTER TABLE Siswa MODIFY Nama VARCHAR(100) NOT NULL;
+       ```
+
+   - **UNIQUE:**
+     - Memastikan bahwa semua nilai dalam kolom tertentu harus unik, tidak boleh ada duplikasi.
+     - **Contoh:**
+       ```sql
+       CREATE TABLE Buku (
+           ISBN VARCHAR(13) UNIQUE,
+           Judul VARCHAR(255)
+       );
+       ```
+
+   - **CHECK:**
+     - Menetapkan kondisi yang harus dipenuhi oleh nilai dalam kolom tertentu.
+     - **Contoh:**
+       ```sql
+       CREATE TABLE Pegawai (
+           ID INT PRIMARY KEY,
+           Nama VARCHAR(100),
+           Umur INT CHECK (Umur >= 18)
+       );
+       ```
+     - Dalam contoh ini, `CHECK` memastikan bahwa nilai `Umur` harus minimal 18.
+
+   - **DEFAULT:**
+     - Menentukan nilai default untuk kolom jika tidak ada nilai yang diberikan saat baris baru ditambahkan.
+     - **Contoh:**
+       ```sql
+       CREATE TABLE Produk (
+           ID INT PRIMARY KEY,
+           Nama VARCHAR(100),
+           Stok INT DEFAULT 0
+       );
+       ```
+     - `DEFAULT` menetapkan bahwa jika `Stok` tidak diisi saat menambah baris baru, maka secara otomatis akan diberi nilai 0.
+
+4. **Penggunaan Indeks (`INDEX`):**
+
+   Indeks adalah struktur data yang meningkatkan kecepatan pengambilan data dalam tabel besar. Tanpa indeks, basis data harus melakukan pencarian sekuensial (memeriksa satu per satu) untuk menemukan data, yang bisa sangat lambat.
+
+   - **Mengapa Indeks Penting?**
+     - Pada tabel dengan jutaan baris, pencarian tanpa indeks bisa sangat lambat. Indeks bekerja seperti indeks di buku, membantu basis data menemukan baris tertentu tanpa harus memeriksa setiap baris.
+
+   - **Jenis-jenis Indeks:**
+     - **B-TREE Index**: Paling umum digunakan, mendukung pencarian rentang.
+     - **Hash Index**: Hanya mendukung pencarian `=` (sama dengan), lebih cepat untuk pencarian sederhana tapi tidak mendukung rentang.
+     - **Bitmap Index**: Efisien untuk kolom dengan jumlah nilai unik yang sangat sedikit.
+
+   - **Membuat Indeks:**
+     - **Contoh:**
+       ```sql
+       CREATE INDEX idx_nama ON Siswa(Nama);
+       ```
+     - Indeks ini akan membuat pencarian berdasarkan `Nama` lebih cepat.
+
+   - **Menghapus Indeks:**
+     - Jika indeks tidak lagi diperlukan atau jika kinerjanya menurun, kita bisa menghapusnya.
+       ```sql
+       DROP INDEX idx_nama ON Siswa;
+       ```
+
+#### **Praktikum Lengkap:**
+
+1. **Latihan 1: Membuat Tabel dengan Constraints**
+   - Buat tabel `Pegawai` dengan kolom `ID`, `Nama`, `Jabatan`, `Gaji`, dan `Umur`. Tetapkan `ID` sebagai `PRIMARY KEY`, `Nama` sebagai `NOT NULL`, `Gaji` dengan nilai `DEFAULT` 0, dan pastikan `Umur` minimal 18 tahun (`CHECK`).
+
+   **SQL Query:**
+   ```sql
+   CREATE TABLE Pegawai (
+       ID INT PRIMARY KEY,
+       Nama VARCHAR(100) NOT NULL,
+       Jabatan VARCHAR(50),
+       Gaji INT DEFAULT 0,
+       Umur INT CHECK (Umur >= 18)
+   );
+   ```
+
+2. **Latihan 2: Menggunakan ALTER untuk Mengubah Tabel**
+   - Tambahkan kolom `Alamat` ke tabel `Pegawai` dan tetapkan tipe data `VARCHAR(255)`. Pastikan `Alamat` tidak boleh kosong (`NOT NULL`).
+
+   **SQL Query:**
 ```sql
-CREATE TABLE Pelanggan (
-    ID_Pelanggan INT PRIMARY KEY,
-    Nama VARCHAR(100),
-    Alamat TEXT,
-    Tanggal_Lahir DATE
-);
-```
-- **ID_Pelanggan:** Ini adalah kolom yang akan menjadi Primary Key, artinya setiap pelanggan akan memiliki ID unik.
-- **Nama:** Tipe data VARCHAR digunakan untuk menyimpan teks yang panjangnya bisa bervariasi.
-- **Alamat:** Tipe data TEXT digunakan untuk menyimpan teks yang lebih panjang.
-- **Tanggal_Lahir:** Tipe data DATE digunakan untuk menyimpan informasi tanggal.
-
-### **Tipe Data Umum dalam SQL:**
-- **INT:** Angka bulat.
-- **VARCHAR(n):** Teks dengan panjang maksimal n karakter.
-- **TEXT:** Teks dengan panjang yang tidak ditentukan.
-- **DATE:** Tanggal (tahun, bulan, hari).
-- **BOOLEAN:** Nilai benar atau salah.
-
-**Contoh Kasus:**
-Misalnya, kalian ingin menyimpan data produk di toko online:
-```sql
-CREATE TABLE Produk (
-    ID_Produk INT PRIMARY KEY,
-    Nama_Produk VARCHAR(255),
-    Harga DECIMAL(10, 2),
-    Stok INT,
-    Tanggal_Ditambahkan DATE
-);
+ALTER TABLE Pegawai ADD Alamat VARCHAR(255) NOT NULL;
 ```
 
-## **3. Perintah ALTER untuk Mengubah Struktur Tabel**
+- **Penjelasan:**
+  - Dalam latihan ini, kalian menambahkan kolom `Alamat` ke dalam tabel `Pegawai` yang sudah dibuat sebelumnya. Kolom `Alamat` diset untuk tidak boleh kosong (`NOT NULL`), yang berarti setiap baris di tabel harus memiliki nilai di kolom ini. Jika kalian menambahkan baris baru tanpa mengisi nilai `Alamat`, SQL akan menolak memasukkan data tersebut.
 
-### **Perintah ALTER:**
-Ketika tabel sudah dibuat, mungkin suatu saat kalian butuh menambahkan kolom baru, mengubah tipe data kolom yang ada, atau bahkan menghapus kolom. Untuk itulah perintah `ALTER` digunakan.
+3. **Latihan 3: Membuat dan Menghapus Indeks**
+   - **Membuat Indeks pada Kolom `Nama`:**
+     - Tujuan dari indeks ini adalah untuk mempercepat pencarian atau pengurutan data berdasarkan `Nama`. Indeks sangat berguna ketika tabel memiliki banyak baris.
+     ```sql
+     CREATE INDEX idx_nama ON Pegawai(Nama);
+     ```
+   - **Menghapus Indeks:**
+     - Jika setelah beberapa waktu kalian merasa indeks ini tidak lagi dibutuhkan (misalnya karena tabel `Pegawai` menjadi kecil sehingga pencarian sekuensial cukup cepat), kalian bisa menghapusnya.
+     ```sql
+     DROP INDEX idx_nama ON Pegawai;
+     ```
 
-**Contoh Menambah Kolom:**
-```sql
-ALTER TABLE Pelanggan ADD Email VARCHAR(100);
-```
+- **Penjelasan:**
+  - Latihan ini memberikan pengalaman langsung dalam membuat dan mengelola indeks di tabel. Ini akan membantu kalian memahami bagaimana indeks bekerja dan kapan perlu menggunakannya untuk meningkatkan performa query.
 
-**Contoh Mengubah Tipe Data Kolom:**
-```sql
-ALTER TABLE Pelanggan MODIFY Nama VARCHAR(150);
-```
+#### **Diskusi dan Review:**
 
-**Contoh Menghapus Kolom:**
-```sql
-ALTER TABLE Pelanggan DROP COLUMN Alamat;
-```
+- **Mengapa Constraints Penting?**
+  - **Diskusi:** Constraints memastikan integritas dan konsistensi data. Misalnya, `PRIMARY KEY` memastikan bahwa setiap baris dapat diidentifikasi secara unik, sementara `FOREIGN KEY` menjaga hubungan antar tabel tetap konsisten. Constraints seperti `NOT NULL`, `CHECK`, dan `DEFAULT` juga memainkan peran penting dalam menjaga kualitas data.
+  - **Contoh Praktis:** Jika kalian memiliki tabel `Siswa` dan `Kelas`, `FOREIGN KEY` membantu memastikan bahwa setiap siswa hanya bisa dihubungkan ke kelas yang benar-benar ada dalam tabel `Kelas`. Tanpa constraints, data bisa menjadi kacau, misalnya, siswa mungkin terdaftar di kelas yang tidak ada.
 
-### **Kapan Menggunakan ALTER?**
-Bayangkan kalian punya toko, dan seiring waktu kalian ingin menambahkan fitur baru seperti email notifikasi kepada pelanggan. Dengan `ALTER`, kalian bisa menambahkan kolom email ke dalam tabel tanpa harus membuat ulang tabel dari awal.
-
-## **4. Perintah DROP untuk Menghapus Tabel**
-
-### **Perintah DROP:**
-Perintah `DROP` digunakan untuk menghapus objek dari basis data, seperti tabel atau indeks. Jika kalian tidak lagi membutuhkan tabel atau objek tertentu, kalian bisa menghapusnya secara permanen dengan `DROP`.
-
-**Contoh Menghapus Tabel:**
-```sql
-DROP TABLE Produk;
-```
-
-### **Pentingnya Hati-hati dengan DROP:**
-Perintah `DROP` ini sangat kuat, karena ketika kalian menghapus tabel, semua data yang ada di dalamnya juga akan hilang. Jadi, pastikan kalian benar-benar tidak memerlukan tabel tersebut sebelum menjalankan perintah ini.
-
-## **5. Penerapan Constraint: PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK**
-
-### **Apa Itu Constraint?**
-Constraint adalah aturan yang diterapkan pada kolom dalam tabel untuk memastikan integritas data. Beberapa jenis constraint yang umum adalah:
-
-- **PRIMARY KEY:** Menjamin bahwa setiap nilai dalam kolom unik dan tidak kosong. Contoh: `ID_Pelanggan`.
-- **FOREIGN KEY:** Menghubungkan kolom di satu tabel dengan PRIMARY KEY di tabel lain. Contoh: `ID_Pelanggan` di tabel `Pesanan`.
-- **UNIQUE:** Menjamin bahwa semua nilai dalam kolom adalah unik (tidak ada duplikat).
-- **CHECK:** Memastikan bahwa nilai dalam kolom memenuhi kondisi tertentu.
-
-### **Contoh Penerapan PRIMARY KEY dan FOREIGN KEY:**
-```sql
-CREATE TABLE Pesanan (
-    ID_Pesanan INT PRIMARY KEY,
-    Tanggal DATE,
-    ID_Pelanggan INT,
-    FOREIGN KEY (ID_Pelanggan) REFERENCES Pelanggan(ID_Pelanggan)
-);
-```
-
-### **Contoh Penerapan UNIQUE dan CHECK:**
-```sql
-CREATE TABLE Karyawan (
-    ID_Karyawan INT PRIMARY KEY,
-    Nama VARCHAR(100),
-    Email VARCHAR(100) UNIQUE,
-    Gaji DECIMAL(10, 2),
-    CHECK (Gaji > 0)
-);
-```
-
-### **Mengapa Constraint Penting?**
-Constraint ini seperti aturan main dalam basis data. Mereka memastikan bahwa data yang kalian masukkan benar dan sesuai dengan yang diharapkan. Misalnya, kalian tidak bisa menambahkan pesanan jika pelanggan tidak ada di dalam tabel `Pelanggan`, atau kalian tidak bisa memasukkan email yang sama untuk dua karyawan yang berbeda.
-
----
-
-### **Aktivitas**
-
-1. **Diskusi Kelompok:**
-    - **Topik:** Mengapa penting untuk memastikan struktur tabel sudah benar sebelum menambahkan data?
-    - **Tujuan:** Memahami peran penting DDL dan constraint dalam menjaga integritas data dalam basis data.
-
-2. **Latihan:**
-    - **Tugas:** Buat tabel baru untuk menyimpan data karyawan di perusahaan kalian, lengkap dengan constraint yang sesuai. Gunakan perintah `CREATE`, `ALTER`, dan `DROP` untuk memodifikasi tabel jika diperlukan.
-    - **Output:** Kode SQL dan penjelasan singkat tentang apa yang dilakukan setiap bagian dari kode tersebut.
+- **Peran Indeks dalam Optimasi Query:**
+  - **Diskusi:** Indeks adalah alat yang sangat kuat untuk meningkatkan kinerja query, terutama pada tabel besar. Indeks bekerja seperti indeks dalam sebuah buku, memungkinkan basis data untuk menemukan data lebih cepat tanpa harus memeriksa setiap baris.
+  - **Contoh Praktis:** Pertimbangkan tabel `Pegawai` dengan ribuan baris. Tanpa indeks, pencarian pegawai berdasarkan `Nama` akan memakan waktu lama karena SQL harus memeriksa setiap baris. Dengan indeks, SQL bisa langsung menuju ke baris yang relevan, mempercepat proses pencarian.
 
 ---
 [⏮ Installasi](../3-installasi/README.md) || [Home 🏘](../README.md) || [DML ⏭](../5-dml/README.md)
