@@ -11,4 +11,4 @@
 10. [Kasus Penggunaan Nyata dan Pengenalan NoSQL](./9-case-dan-nosql/README.md)
 11. [Monitoring dan Pemeliharaan Basis Data](./10-monitoring/README.md)
 
-[Kembali ke Home 🏘](../README.md)
+[Kembali ke Halaman Utama 🏘](../README.md)
