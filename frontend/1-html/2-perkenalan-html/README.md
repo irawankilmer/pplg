@@ -44,3 +44,7 @@ Berikut ini adalah contoh struktur HTML yang sangat sederhana:
 ```
 
 Di contoh ini, kita bikin halaman sederhana yang punya judul "Halaman Web Pertama Saya", sebuah judul besar "Halo, Dunia!" di dalam tag `<h1>`, dan paragraf yang menyapa pengunjung dengan teks "Selamat datang di halaman web pertama saya." dalam tag `<p>`.
+
+---
+### Navigasi
+[⏮Intro HTML](../1-pembukaan/README.md) || [Home🏠](../../README.md) || [Tag Dasar HTML⏭](../3-tag-dasar-html/README.md)

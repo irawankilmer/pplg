@@ -55,3 +55,7 @@ Cloud computing adalah layanan yang memungkinkan penyimpanan dan pengolahan data
 
 **Perkembangan Teknologi Internet**
 Internet terus berkembang dengan teknologi baru seperti 5G, yang menjanjikan kecepatan yang jauh lebih cepat dan latensi yang lebih rendah dibandingkan teknologi sebelumnya. Ini akan membuka pintu bagi aplikasi baru seperti realitas virtual, augmented reality, dan IoT yang lebih canggih.
+
+---
+### Navigasi
+[Home🏠](../../README.md) || [Perkenalan HTML⏭](../2-perkenalan-html/README.md)
