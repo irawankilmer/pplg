@@ -235,3 +235,7 @@ Dengan menggunakan array, kalian dapat dengan mudah mengelola data yang kompleks
 2. **Latihan:**
    - **Tugas:** Buatlah aplikasi PHP sederhana yang mengelola data siswa dengan array. Tambahkan fitur untuk menambah, mengubah, menghapus, dan menampilkan data siswa.
    - **Output:** Aplikasi PHP yang menggunakan array untuk mengelola data siswa dengan cara yang efisien dan mudah dipahami.
+
+---
+### Navigasi
+[⏮ Function](../7-function/README.md) || [Home 🏘](../README.md) || [Super Globals ⏭](../9-super-globals/README.md)
