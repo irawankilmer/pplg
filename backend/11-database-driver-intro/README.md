@@ -1,100 +1,190 @@
-# **Bab 11 - Database Driver Introduction**
-
-## **Tujuan Pembelajaran**
-Pada akhir pertemuan ini, kalian diharapkan mampu:
-- Memahami konsep dasar driver database dalam PHP.
-- Mengenal berbagai jenis driver database yang tersedia di PHP, termasuk PDO dan MySQLi.
-- Mengetahui kelebihan dan kekurangan dari masing-masing driver.
-- Mendapatkan rekomendasi tentang kapan dan bagaimana menggunakan setiap driver dalam proyek PHP.
-
-## **Materi yang Akan Dibahas**
-1. Pengenalan Database Driver
-2. Jenis-Jenis Database Driver di PHP
-   - PDO (PHP Data Objects)
-   - MySQLi (MySQL Improved)
-   - ODBC dan Driver Lainnya
-3. Kelebihan dan Kekurangan Masing-Masing Driver
-4. Rekomendasi Penggunaan Database Driver
+# Bab 12 - Pengenalan Database Driver dalam PHP
 
 ---
 
-## **1. Pengenalan Database Driver**
+## Tujuan Pembelajaran
 
-### **Apa Itu Database Driver?**
-Database driver adalah antarmuka yang digunakan oleh aplikasi untuk berkomunikasi dengan database. Dalam konteks PHP, driver ini memungkinkan kalian untuk mengirim kueri SQL ke database, menerima hasilnya, dan melakukan operasi lain seperti koneksi, transaksi, dan manajemen kesalahan.
+Setelah mempelajari bab ini, siswa diharapkan:
 
-### **Mengapa Memilih Driver yang Tepat Itu Penting?**
-Memilih driver database yang tepat sangat penting karena setiap driver memiliki fitur, performa, dan tingkat keamanan yang berbeda. Driver yang salah bisa menyebabkan aplikasi kurang efisien, lebih sulit di-maintain, atau bahkan rentan terhadap serangan.
-
-## **2. Jenis-Jenis Database Driver di PHP**
-
-### **PDO (PHP Data Objects)**
-PDO adalah sebuah interface yang menyediakan akses ke berbagai jenis database melalui satu set fungsi yang konsisten. Dengan PDO, kalian bisa bekerja dengan berbagai database seperti MySQL, PostgreSQL, SQLite, dan banyak lagi, hanya dengan mengganti driver tanpa perlu mengubah banyak kode.
-
-- **Keunggulan:**
-  - **Portabilitas:** Dapat digunakan dengan berbagai jenis database.
-  - **Keamanan:** Mendukung prepared statements yang melindungi dari SQL injection.
-  - **Fleksibilitas:** Memungkinkan pemilihan database dengan mudah melalui konfigurasi.
-  
-- **Kekurangan:**
-  - **Tidak Mendukung Semua Fitur Database:** Tidak semua fitur spesifik dari database tertentu didukung oleh PDO.
-
-### **MySQLi (MySQL Improved)**
-MySQLi adalah driver khusus untuk MySQL yang menyediakan akses ke fitur-fitur terbaru dari MySQL. MySQLi mendukung baik mode prosedural maupun objek, dan menawarkan beberapa fitur canggih yang tidak ada di MySQL versi lama.
-
-- **Keunggulan:**
-  - **Optimalisasi untuk MySQL:** Mendukung fitur-fitur canggih dari MySQL seperti multi-query dan transaksi.
-  - **Prepared Statements:** Sama seperti PDO, MySQLi juga mendukung prepared statements untuk keamanan.
-  - **Kemudahan Penggunaan:** Terutama jika hanya bekerja dengan MySQL.
-
-- **Kekurangan:**
-  - **Keterbatasan pada MySQL:** Hanya bisa digunakan dengan MySQL, sehingga kurang fleksibel jika perlu berpindah database.
-
-### **ODBC dan Driver Lainnya**
-Selain PDO dan MySQLi, PHP juga mendukung driver lain seperti ODBC, SQLite3, dan lainnya. ODBC, misalnya, adalah driver yang memungkinkan aplikasi untuk terhubung dengan berbagai jenis database melalui sebuah interface umum.
-
-- **Keunggulan:**
-  - **Kompatibilitas Luas:** Mendukung banyak jenis database melalui interface umum.
-  
-- **Kekurangan:**
-  - **Kompleksitas Konfigurasi:** Memerlukan konfigurasi yang lebih rumit dan sering kali lebih lambat dibandingkan driver spesifik seperti MySQLi.
-
-## **3. Kelebihan dan Kekurangan Masing-Masing Driver**
-
-### **PDO vs. MySQLi**
-- **Fleksibilitas:** PDO lebih fleksibel karena mendukung berbagai database, sementara MySQLi hanya mendukung MySQL.
-- **Fitur Database Spesifik:** MySQLi lebih kaya fitur ketika bekerja khusus dengan MySQL.
-- **Performance:** Secara umum, kinerja keduanya serupa, tetapi MySQLi mungkin lebih cepat untuk tugas-tugas spesifik MySQL.
-
-### **Rekomendasi:**
-- Gunakan **PDO** jika kalian perlu mendukung berbagai jenis database atau jika ada kemungkinan berpindah database di masa depan.
-- Gunakan **MySQLi** jika kalian hanya bekerja dengan MySQL dan ingin memanfaatkan fitur-fitur spesifik MySQL.
-
-## **4. Rekomendasi Penggunaan Database Driver**
-
-### **Kapan Menggunakan PDO:**
-- Jika aplikasi kalian mungkin perlu mendukung berbagai jenis database.
-- Jika kalian ingin menulis kode yang lebih portabel dan mudah dimigrasikan.
-
-### **Kapan Menggunakan MySQLi:**
-- Jika kalian yakin hanya akan bekerja dengan MySQL.
-- Jika kalian membutuhkan akses ke fitur-fitur spesifik dari MySQL yang tidak didukung oleh PDO.
-
-### **Driver Lainnya:**
-- Gunakan **ODBC** jika kalian bekerja dengan database legacy atau jika aplikasi kalian perlu berinteraksi dengan berbagai database yang tidak didukung langsung oleh PDO atau MySQLi.
+* Memahami konsep "Database Driver" dalam konteks pemrograman PHP.
+* Mengetahui sejarah dan perkembangan driver database dalam PHP.
+* Mengenal dan membedakan driver `mysql`, `mysqli`, dan `PDO` secara mendalam.
+* Mengetahui keunggulan dan kekurangan masing-masing driver.
+* Dapat menentukan driver yang paling sesuai dalam berbagai kebutuhan aplikasi.
+* Mampu membuat koneksi dan menjalankan query sederhana menggunakan `MySQLi` dan `PDO`.
+* Menyadari isu keamanan dan praktik terbaik dalam koneksi database.
 
 ---
 
-### **Aktivitas**
+## 1. Apa Itu Database Driver?
 
-1. **Diskusi Kelompok:**
-   - **Topik:** Apa yang perlu dipertimbangkan ketika memilih driver database untuk aplikasi PHP?
-   - **Tujuan:** Memahami faktor-faktor yang mempengaruhi pemilihan driver database yang tepat.
+Database Driver adalah **komponen atau antarmuka (interface)** yang memungkinkan sebuah bahasa pemrograman (dalam hal ini PHP) untuk **terhubung dan berinteraksi** dengan database seperti MySQL, PostgreSQL, SQLite, Oracle, dsb.
 
-2. **Latihan:**
-   - **Tugas:** Buatlah perbandingan sederhana antara PDO dan MySQLi berdasarkan sebuah proyek hipotetis. Jelaskan pilihan driver yang kalian gunakan dan alasannya.
-   - **Output:** Laporan singkat yang menjelaskan pilihan driver dan alasan di baliknya.
+Secara teknis, driver bertugas menghubungkan antara perintah PHP dengan sistem database agar:
+
+* PHP dapat mengirim kueri SQL.
+* PHP dapat menerima hasil dari database.
+* PHP dapat mengelola error, transaksi, dan fitur lainnya.
+
+Tanpa driver, PHP tidak bisa membaca atau memanipulasi data di dalam database.
 
 ---
-### Navigasi
-[⏮ Form Handling](../10-form-handling/README.md) || [Home 🏘](../README.md) || [Database Driver PDO ⏭](../12-database-driver-pdo/README.md)
+
+## 2. Sejarah Driver Database di PHP
+
+### 2.1 `mysql_*` Extension (Driver Lama, Deprecated)
+
+* Diperkenalkan sejak PHP versi 2.x hingga 5.x.
+* Fungsi umum: `mysql_connect()`, `mysql_query()`, `mysql_fetch_assoc()`, dll.
+* Sifat: **Procedural** (bukan OOP).
+* Kelemahan:
+
+  * Tidak mendukung **prepared statement**.
+  * Tidak mendukung **transaction**.
+  * Tidak mendukung **stored procedure**.
+  * **Rentan terhadap SQL Injection**.
+  * Tidak konsisten dalam penanganan error.
+
+> Deprecated sejak PHP 5.5 (2013), dan dihapus permanen di PHP 7.0 (2015).
+
+### 2.2 `mysqli` (MySQL Improved)
+
+* Diperkenalkan di PHP 5 untuk menggantikan `mysql_*`.
+* Dukungan untuk **MySQL 4.1+**.
+* Bisa digunakan dalam dua gaya:
+
+  * Procedural: `mysqli_connect()`, `mysqli_query()`
+  * Object-Oriented: `$conn = new mysqli(...)`
+* Fitur penting:
+
+  * **Prepared Statement**
+  * **Transaction support**
+  * **Multiple Statements**
+  * **Stored Procedures**
+  * **Binding Result / Input Parameter**
+
+### 2.3 PDO (PHP Data Objects)
+
+* Diperkenalkan sejak PHP 5.1 sebagai interface universal database.
+* Berbasis **Object-Oriented**.
+* Mendukung banyak database:
+
+  * MySQL, PostgreSQL, SQLite, Oracle, IBM, Firebird, dll.
+* Fitur:
+
+  * Prepared Statement
+  * Error Handling dengan Exception
+  * Flexibilitas Query
+  * Transaksi
+
+---
+
+## 3. Jenis Driver Database di PHP
+
+| Driver    | Mendukung Database            | Mode             | Fitur Modern | Keterangan                       |
+| --------- | ----------------------------- | ---------------- | ------------ | -------------------------------- |
+| `mysql`   | MySQL                         | Procedural       | ❌            | Usang, tidak aman, sudah dihapus |
+| `mysqli`  | MySQL                         | Procedural + OOP | ✅            | Direkomendasikan untuk MySQL     |
+| `PDO`     | Multi DB (MySQL, SQLite, dsb) | OOP              | ✅            | Aman, fleksibel, modern          |
+| `ODBC`    | Umum (via driver OS)          | Procedural       | ⚠️ Terbatas  | Butuh konfigurasi tambahan       |
+| `SQLite3` | SQLite                        | OOP              | ✅            | Untuk aplikasi ringan            |
+
+---
+
+## 4. Perbandingan `mysql` vs `mysqli` vs `PDO`
+
+### 4.1 `mysql` (Usang)
+
+* Sangat terbatas dan tidak aman.
+* Tidak bisa menangani parameter input.
+* Contoh:
+
+```php
+$conn = mysql_connect("localhost", "root", "");
+mysql_select_db("dbku", $conn);
+$result = mysql_query("SELECT * FROM siswa");
+```
+
+* Status: ❌ Tidak boleh digunakan lagi.
+
+### 4.2 `mysqli`
+
+* Modern, cepat, aman.
+* Support banyak fitur terbaru MySQL.
+* Bisa digunakan dengan gaya procedural atau OOP.
+* Contoh koneksi:
+
+```php
+$conn = new mysqli("localhost", "root", "", "dbku");
+$result = $conn->query("SELECT * FROM siswa");
+```
+
+### 4.3 `PDO`
+
+* Modern, fleksibel, aman.
+* Bisa dipakai untuk banyak jenis database.
+* Hanya mendukung gaya Object-Oriented.
+* Contoh koneksi:
+
+```php
+$dsn = "mysql:host=localhost;dbname=dbku";
+$conn = new PDO($dsn, "root", "");
+$stmt = $conn->query("SELECT * FROM siswa");
+```
+
+---
+
+## 5. Kelebihan dan Kekurangan
+
+| Aspek              | `mysqli`                 | `PDO`                           |
+| ------------------ | ------------------------ | ------------------------------- |
+| Dukungan DB        | Hanya MySQL              | Banyak (MySQL, PostgreSQL, dll) |
+| Mode               | Procedural + OOP         | Hanya OOP                       |
+| Prepared Statement | ✅ Ya                     | ✅ Ya                            |
+| Portabilitas       | ❌ Rendah                 | ✅ Tinggi                        |
+| Kinerja            | Optimal untuk MySQL      | Sedikit lebih lambat            |
+| Keamanan           | ✅ Aman (prepared)        | ✅ Aman (prepared)               |
+| Learning Curve     | Mudah untuk pemula MySQL | Sedikit lebih kompleks          |
+
+---
+
+## 6. Praktik Terbaik
+
+* Selalu gunakan **Prepared Statement** untuk mencegah SQL Injection.
+* Gunakan `PDO` jika proyek bersifat portabel atau ingin mendukung banyak database.
+* Gunakan `MySQLi` jika hanya menggunakan MySQL dan ingin memanfaatkan fitur spesifiknya.
+* Hindari menggunakan fungsi `mysql_*`.
+* Selalu validasi hasil koneksi.
+* Tangani error dengan try-catch (`PDO`) atau pengecekan error (`MySQLi`).
+
+---
+
+## 7. Aktivitas & Tugas
+
+### Aktivitas Diskusi:
+
+* Apa risiko yang ditimbulkan jika masih menggunakan `mysql_*`?
+* Kapan harus menggunakan `PDO`, dan kapan cukup dengan `MySQLi`?
+
+### Tugas Latihan:
+
+1. Buat koneksi ke database `perpustakaan` menggunakan `mysqli` (OOP).
+2. Buat koneksi ke database yang sama menggunakan `PDO`.
+3. Buat form input siswa yang datanya disimpan ke database menggunakan prepared statement (dengan mysqli dan PDO).
+4. Simulasikan pemindahan kode dari MySQL ke PostgreSQL. Analisa kode mana yang tetap, dan mana yang perlu diubah.
+
+---
+
+## 8. Kesimpulan
+
+* PHP telah berevolusi dari `mysql_*` ke `mysqli` dan `PDO` untuk peningkatan keamanan dan fleksibilitas.
+* `mysql_*` sudah tidak didukung lagi dan harus dihindari.
+* `mysqli` cocok untuk penggunaan MySQL secara khusus.
+* `PDO` cocok untuk proyek jangka panjang, multi-database, atau proyek dengan keamanan tinggi.
+* Penggunaan driver yang tepat berdampak besar pada keamanan, performa, dan kemudahan migrasi aplikasi.
+
+---
+
+## Navigasi
+
+[⏮ Bab Sebelumnya](../10-form-handling/README.md) | [🏠 Beranda](../README.md) | [⏭ Lanjut: PDO Mendalam](../13-pdo-detail/README.md)

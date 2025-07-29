@@ -1,4 +1,4 @@
-# **Bab 12 – Validasi Data dalam PHP**
+# **Bab 11 – Validasi Data dalam PHP**
 
 ---
 
