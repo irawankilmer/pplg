@@ -188,7 +188,267 @@ Superglobals adalah alat penting dalam PHP yang memungkinkan kalian untuk mengel
 2. **Latihan:**
    - **Tugas:** Buatlah aplikasi PHP sederhana yang menggunakan superglobals untuk menerima input dari form, menyimpan data dalam sesi, dan menampilkan data yang disimpan dalam cookie.
    - **Output:** Aplikasi PHP yang menggunakan superglobals secara efektif untuk mengelola data.
+---
+
+# **Bab 9 Lanjutan – Session dan Cookie dalam PHP**
 
 ---
+
+## 🎯 **Tujuan Pembelajaran**
+
+Setelah mempelajari bab ini, kalian diharapkan:
+
+* Memahami perbedaan mendasar antara **session** dan **cookie**.
+* Menggunakan session untuk menyimpan data pengguna di sisi server.
+* Menggunakan cookie untuk menyimpan data ringan di sisi client (browser).
+* Mengetahui cara membuat, membaca, dan menghapus session dan cookie.
+* Mampu membangun simulasi **login** sederhana berbasis session.
+
+---
+
+## 🧠 **1. Pengantar: Mengapa Kita Butuh Session dan Cookie?**
+
+PHP adalah bahasa server-side yang **tidak menyimpan data antar halaman secara otomatis**. Artinya, jika pengguna berpindah dari satu halaman ke halaman lain, data seperti nama, login, dan pilihan mereka akan **hilang** jika tidak disimpan.
+
+👉 Di sinilah peran **Session dan Cookie**:
+
+* Untuk **mengingat data** antar halaman.
+* Untuk **melacak status pengguna** (apakah sedang login, preferensi warna, keranjang belanja, dll).
+* Untuk **mengamankan proses-proses sensitif**, seperti login.
+
+---
+
+## 📦 **2. Analogi Sederhana**
+
+### 🍪 **Cookie: Catatan Disimpan oleh Pengguna**
+
+Bayangkan kamu masuk ke perpustakaan dan diberi **catatan kecil** yang berisi daftar buku yang kamu pinjam. Catatan ini **kamu simpan sendiri**, dan saat kembali besok, kamu menunjukkannya ke petugas.
+
+* Data disimpan di **sisi pengguna (browser)**.
+* Bisa dimanipulasi/dihapus oleh pengguna.
+
+### 🗃️ **Session: Catatan Disimpan oleh Server**
+
+Sekarang bayangkan kamu masuk ke ruang TU dan petugas menuliskan namamu serta tujuanmu di **buku besar TU**. Kamu hanya perlu menunjukkan ID untuk mengakses catatanmu. Catatannya **tidak bisa kamu lihat atau ubah**.
+
+* Data disimpan di **server**.
+* Lebih aman karena pengguna tidak bisa langsung mengakses atau memanipulasinya.
+
+---
+
+## 🔍 **3. Perbandingan Session vs Cookie**
+
+| Fitur                 | **Session**                    | **Cookie**                       |
+| --------------------- | ------------------------------ | -------------------------------- |
+| Lokasi penyimpanan    | Server                         | Browser (Client)                 |
+| Kapasitas penyimpanan | Besar (tergantung server)      | Kecil (sekitar 4KB)              |
+| Keamanan              | Lebih aman                     | Rentan jika tidak dienkripsi     |
+| Akses pengguna        | Tidak bisa diakses langsung    | Bisa dilihat/dihapus oleh user   |
+| Expired               | Saat browser ditutup (default) | Bisa diatur waktunya             |
+| Cocok untuk           | Login, proses rahasia          | Preferensi ringan seperti bahasa |
+
+---
+
+## 🔧 **4. Session dalam PHP**
+
+### 🚩 Aturan Utama:
+
+* **Selalu panggil `session_start()` di baris paling atas sebelum HTML dimulai!**
+* Gunakan array `$_SESSION` untuk menyimpan data.
+* Data session disimpan secara **unik untuk setiap pengguna** berdasarkan ID sesi mereka.
+
+---
+
+### 📌 Contoh 1 – Menyimpan Data ke Session
+
+```php
+<?php
+session_start();
+$_SESSION['nama'] = "Ahmad Zaki";
+$_SESSION['kelas'] = "XI PPLG A";
+echo "Data telah disimpan ke session.";
+?>
+```
+
+---
+
+### 📌 Contoh 2 – Mengambil Data dari Session
+
+```php
+<?php
+session_start();
+echo "Nama: " . $_SESSION['nama'] . "<br>";
+echo "Kelas: " . $_SESSION['kelas'];
+?>
+```
+
+---
+
+### 📌 Contoh 3 – Menghapus Session
+
+```php
+<?php
+session_start();
+session_unset();    // Menghapus semua isi $_SESSION
+session_destroy();  // Menghancurkan session
+echo "Session telah dihapus.";
+?>
+```
+
+---
+
+## 🔐 **5. Cookie dalam PHP**
+
+### 🔧 Aturan Utama:
+
+* Gunakan fungsi `setcookie()` untuk membuat cookie.
+* Cookie akan tersedia pada **permintaan (request) berikutnya**.
+* Data dapat diakses melalui `$_COOKIE`.
+
+---
+
+### 📌 Contoh 1 – Menyimpan Cookie
+
+```php
+<?php
+setcookie("user", "Hani Fuziyani", time() + 3600); // Berlaku 1 jam
+echo "Cookie telah diset.";
+?>
+```
+
+### 📌 Contoh 2 – Mengakses Cookie
+
+```php
+<?php
+if (isset($_COOKIE['user'])) {
+    echo "Selamat datang, " . $_COOKIE['user'];
+} else {
+    echo "Cookie tidak tersedia.";
+}
+?>
+```
+
+### 📌 Contoh 3 – Menghapus Cookie
+
+```php
+<?php
+setcookie("user", "", time() - 3600); // Waktu mundur = hapus cookie
+echo "Cookie telah dihapus.";
+?>
+```
+
+---
+
+## 💻 **6. Simulasi Login Sederhana dengan Session**
+
+### ✅ `login.php`
+
+```php
+<?php
+session_start();
+if ($_POST['username'] == "admin" && $_POST['password'] == "123") {
+    $_SESSION['login'] = true;
+    $_SESSION['user'] = "admin";
+    header("Location: dashboard.php");
+} else {
+    echo "Login gagal!";
+}
+?>
+```
+
+### ✅ `dashboard.php`
+
+```php
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: login_form.html");
+    exit;
+}
+echo "Selamat datang, " . $_SESSION['user'];
+?>
+```
+
+### ✅ `logout.php`
+
+```php
+<?php
+session_start();
+session_destroy();
+header("Location: login_form.html");
+?>
+```
+
+---
+
+## 🧭 **7. Diagram Alur Login Menggunakan Session**
+
+```
+[User Isi Form Login] 
+        ↓
+[login.php]
+ - Cek username & password
+ - Jika benar → Simpan $_SESSION['login']
+        ↓
+[dashboard.php]
+ - Cek session login
+ - Jika ada → tampilkan dashboard
+ - Jika tidak ada → redirect ke login
+```
+
+---
+
+## 🧠 **8. Tips Penting Session dan Cookie**
+
+| Tips                                     | Penjelasan                                   |
+| ---------------------------------------- | -------------------------------------------- |
+| `session_start()` wajib di awal file PHP | Tanpa ini, `$_SESSION` tidak bisa digunakan  |
+| Session cocok untuk data sensitif        | Contoh: status login, ID pengguna            |
+| Gunakan cookie untuk hal ringan          | Contoh: preferensi bahasa, mode gelap/terang |
+| Jangan simpan password di session/cookie | Selalu simpan hanya ID atau token saja       |
+
+---
+
+## 🧪 **9. Latihan Praktik**
+
+### ✍️ Latihan 1 – Session Dasar
+
+1. Buat file `simpan.php` yang menyimpan `nama` dan `kelas` ke session.
+2. Buat `tampil.php` yang menampilkan isi session.
+3. Buat `hapus.php` untuk menghapus session.
+
+---
+
+### ✍️ Latihan 2 – Cookie Sederhana
+
+1. Buat file yang menyimpan nama user ke cookie.
+2. Buat file lain yang menampilkan cookie tersebut jika ada.
+3. Buat tombol untuk menghapus cookie.
+
+---
+
+### ✍️ Latihan 3 – Mini Project: Simulasi Login
+
+* Gunakan form login sederhana.
+* Validasi user dan simpan session.
+* Tampilkan halaman dashboard jika login berhasil.
+* Tambahkan logout yang menghapus session.
+
+---
+
+## 📚 **10. Penutup**
+
+* **Session**: Digunakan untuk menyimpan data di server, cocok untuk informasi penting dan rahasia (seperti status login).
+* **Cookie**: Digunakan untuk menyimpan data kecil di browser, cocok untuk preferensi pengguna.
+* Keduanya sangat penting dalam membuat **aplikasi web yang interaktif dan personal**.
+
+---
+
+## 🔗 Bonus: Rekomendasi Implementasi Lanjutan
+
+* Simpan ID user ke session setelah login dan gunakan untuk query database.
+* Gunakan cookie dengan enkripsi jika menyimpan data penting.
+* Gunakan session timeout (auto logout jika tidak aktif dalam beberapa menit).
+
 ### Navigasi
 [⏮ Array](../8-array/README.md) || [Home 🏘](../README.md) || [Form Handling ⏭](../10-form-handling/README.md)
