@@ -1,4 +1,4 @@
-# **Bab 13 - Database Driver: MySQLi dengan Pendekatan Prosedural**
+# **Bab 14 - Database Driver: MySQLi dengan Pendekatan Prosedural**
 
 ## **Tujuan Pembelajaran**
 Setelah menyelesaikan bab ini, kalian diharapkan dapat:

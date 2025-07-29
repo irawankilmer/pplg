@@ -1,4 +1,4 @@
-# **Bab 12 - Database Driver: PDO**
+# **Bab 13 - Database Driver: PDO**
 
 ## **Tujuan Pembelajaran**
 Pada akhir pertemuan ini, kalian diharapkan mampu:

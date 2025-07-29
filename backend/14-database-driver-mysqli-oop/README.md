@@ -1,8 +1,4 @@
-Berikut adalah pembahasan lengkap tentang **Bab 14 - MySQLi dengan Pendekatan OOP (Object-Oriented Programming)**:
-
----
-
-# **Bab 14 - MySQLi dengan Pendekatan OOP**
+# **Bab 15 - MySQLi dengan Pendekatan OOP**
 
 ## **Tujuan Pembelajaran**
 Setelah menyelesaikan bab ini, kalian diharapkan dapat:
