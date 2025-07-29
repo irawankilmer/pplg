@@ -2,3 +2,4 @@
 1. [Basis Data](./basis-data/README.md)
 2. [Frontend](./frontend/README.md)
 3. [Backend](./backend/README.md)
+4. [Pemodelan Perangkat Lunak](./pemodelan-perangkat-lunak/README.md)
