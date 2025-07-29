@@ -1,202 +1,215 @@
-# **Bab 13 - Database Driver: PDO**
+# **Bab 13 - Database Driver: PDO (PHP 8.3+)**
 
 ## **Tujuan Pembelajaran**
-Pada akhir pertemuan ini, kalian diharapkan mampu:
-- Memahami fungsi-fungsi dasar PDO yang sering digunakan.
-- Menggunakan PDO untuk mengelola koneksi ke database, menjalankan query, dan menangani error.
-- Memahami dan memilih metode pengambilan data (`fetch_assoc()`, `fetch_row()`, `fetch_array()`, `fetch_object()`, `fetch_all()`) yang paling sesuai berdasarkan kebutuhan.
-- Mengimplementasikan fungsi-fungsi PDO dalam skenario CRUD (Create, Read, Update, Delete).
 
-## **Materi yang Akan Dibahas**
-1. Pengantar PDO
-2. Fungsi-Fungsi Dasar PDO
-   - `PDO::__construct()`
-   - `PDO::setAttribute()`
-   - **`PDO::prepare()` dan `PDOStatement::execute()`** (Penjelasan Lengkap)
-   - **Metode Pengambilan Data PDO:**
-     - `PDO::fetch()`
-     - `PDO::fetchAll()`
-     - **`PDO::fetch_assoc()`**
-     - **`PDO::fetch_row()`**
-     - **`PDO::fetch_array()`**
-     - **`PDO::fetch_object()`**
-3. Implementasi CRUD dengan PDO
-   - Create (Membuat Data)
-   - Read (Membaca Data)
-   - Update (Memperbarui Data)
-   - Delete (Menghapus Data)
-4. Studi Kasus: Implementasi PDO dalam Aplikasi Sederhana
+Pada akhir pertemuan ini, kalian diharapkan mampu:
+
+* Memahami konsep PDO dan keunggulannya dibandingkan ekstensi lain.
+* Menguasai cara koneksi ke database menggunakan PDO.
+* Menggunakan fitur prepared statements untuk mencegah SQL injection.
+* Menerapkan mode fetch data (`FETCH_ASSOC`, `FETCH_OBJ`, dll.) sesuai kebutuhan.
+* Melaksanakan operasi CRUD menggunakan PDO.
+* Menangani error dan debugging saat bekerja dengan PDO.
+* Memahami praktik terbaik penggunaan PDO pada aplikasi skala kecil hingga menengah.
 
 ---
 
 ## **1. Pengantar PDO**
 
-### **Apa Itu PDO?**
-PDO (PHP Data Objects) adalah sebuah interface di PHP yang menyediakan cara konsisten untuk mengakses berbagai jenis database. PDO mendukung banyak database, termasuk MySQL, PostgreSQL, SQLite, dan banyak lagi. Selain itu, PDO menawarkan berbagai fitur canggih seperti prepared statements, transaksi, dan penanganan error.
+### Apa Itu PDO?
 
-## **2. Fungsi-Fungsi Dasar PDO**
+PDO (PHP Data Objects) adalah antarmuka berbasis objek di PHP untuk mengakses berbagai jenis database secara konsisten. PDO mendukung lebih dari 12 jenis database seperti MySQL, PostgreSQL, SQLite, Oracle, SQL Server, dll.
 
-### **1. `PDO::__construct()`**
-Ini adalah konstruktor yang digunakan untuk membuat objek PDO baru dan menghubungkan aplikasi kalian ke database.
+### Mengapa Menggunakan PDO?
 
-**Sintaks:**
+* ✅ *Keamanan*: Mendukung **prepared statements** untuk mencegah SQL Injection.
+* ✅ *Portabilitas*: Kode dapat dipindahkan ke DBMS lain tanpa banyak perubahan.
+* ✅ *Fleksibilitas*: Mendukung berbagai mode pengambilan data.
+* ✅ *Fitur Modern*: Mendukung exception handling, transaksi, dan fetch style.
+
+---
+
+## **2. Membuat Koneksi PDO**
+
+### Sintaks Umum:
+
 ```php
-$pdo = new PDO('dsn', 'username', 'password');
-```
-
-### **2. `PDO::setAttribute()`**
-Fungsi ini digunakan untuk mengatur atribut tertentu pada objek PDO, seperti mode penanganan error.
-
-**Sintaks:**
-```php
+$pdo = new PDO("mysql:host=localhost;dbname=sekolah", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ```
 
-### **3. **`PDO::prepare()` dan `PDOStatement::execute()` (Penjelasan Lengkap)****
+### Parameter:
 
-Prepared statements adalah fitur yang sangat penting dalam PDO karena memberikan dua keuntungan utama: meningkatkan keamanan aplikasi kalian terhadap serangan SQL Injection dan meningkatkan performa query yang sering dijalankan.
+* **DSN (Data Source Name)**: Format `driver:host=...;dbname=...`
+* **Username dan Password**
+* **Opsi Atribut PDO**:
 
-**Jenis Placeholder:**
-1. **Positional Placeholder (`?`)**
-2. **Named Placeholder (`:name`)**
+  ```php
+  $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  ```
 
-#### **`PDOStatement::execute()`**
-`PDOStatement::execute()` digunakan untuk mengeksekusi query yang telah dipersiapkan dengan `PDO::prepare()`. 
+---
 
-**Return Values:**
-- `execute()` mengembalikan nilai `true` jika query berhasil dieksekusi, dan `false` jika gagal.
+## **3. Prepared Statements**
 
-### **Metode Pengambilan Data PDO:**
+### Kenapa Penting?
 
-Ketika kalian mengeksekusi query SELECT dengan PDO, kalian perlu mengambil hasilnya. PDO menyediakan berbagai metode untuk melakukan ini, masing-masing dengan kelebihan tersendiri tergantung pada skenario penggunaan.
+Prepared statement mencegah SQL injection dengan cara memisahkan struktur query dan data.
 
-### **1. `PDO::fetch()`**
-`PDO::fetch()` digunakan untuk mengambil satu baris hasil query. Ini berguna jika kalian hanya mengharapkan satu hasil dari query atau ingin mengiterasi hasil satu per satu.
+### Sintaks:
 
-**Sintaks:**
 ```php
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare("SELECT * FROM siswa WHERE id = :id");
+$stmt->execute(["id" => 1]);
+$row = $stmt->fetch();
 ```
 
-**Opsi Mode Fetch:**
-- **`PDO::FETCH_ASSOC`**: Mengembalikan hasil sebagai array asosiatif, di mana nama kolom menjadi kunci.
-- **`PDO::FETCH_NUM`**: Mengembalikan hasil sebagai array numerik, di mana indeks adalah urutan kolom.
-- **`PDO::FETCH_BOTH`**: Mengembalikan hasil sebagai array dengan kunci asosiatif dan numerik.
-- **`PDO::FETCH_OBJ`**: Mengembalikan hasil sebagai objek, di mana nama kolom menjadi properti objek.
+### Jenis Placeholder:
 
-**Kapan Menggunakan?**
-- Gunakan `PDO::fetch()` ketika kalian hanya membutuhkan satu baris data atau ingin mengambil data baris demi baris, misalnya dalam loop.
+* `?` (Posisi) → `$stmt->execute([1]);`
+* `:nama` (Named) → `$stmt->execute(['nama' => 'Alya']);`
 
-### **2. `PDO::fetchAll()`**
-`PDO::fetchAll()` digunakan untuk mengambil semua baris dari hasil query sekaligus.
+---
 
-**Sintaks:**
+## **4. Mode Pengambilan Data (Fetch Mode)**
+
+| Mode               | Deskripsi                              |
+| ------------------ | -------------------------------------- |
+| `PDO::FETCH_ASSOC` | Array asosiatif dengan nama kolom      |
+| `PDO::FETCH_NUM`   | Array numerik berdasarkan indeks kolom |
+| `PDO::FETCH_BOTH`  | Kombinasi keduanya (default lama)      |
+| `PDO::FETCH_OBJ`   | Objek PHP standar (akses via properti) |
+| `PDO::FETCH_CLASS` | Objek dari class tertentu              |
+
+### Contoh:
+
 ```php
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT * FROM siswa");
+$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+echo $data[0]->nama;
 ```
 
-**Kapan Menggunakan?**
-- Gunakan `PDO::fetchAll()` ketika kalian membutuhkan semua hasil query sekaligus, misalnya untuk menampilkan seluruh daftar produk di halaman.
+---
 
-### **3. **`PDO::fetch_assoc()`**
+## **5. CRUD Menggunakan PDO**
 
-`PDO::fetch_assoc()` tidak secara langsung tersedia dalam PDO, tetapi kalian bisa mencapainya menggunakan `PDO::FETCH_ASSOC` dalam `PDO::fetch()` atau `PDO::fetchAll()`.
+### a. Create
 
-### **4. **`PDO::fetch_row()`**
-
-`PDO::fetch_row()` tidak secara langsung tersedia dalam PDO, tetapi kalian bisa mencapainya menggunakan `PDO::FETCH_NUM` dalam `PDO::fetch()` atau `PDO::fetchAll()`.
-
-### **5. **`PDO::fetch_array()`**
-
-`PDO::fetch_array()` tidak secara langsung tersedia dalam PDO, tetapi kalian bisa mencapainya menggunakan `PDO::FETCH_BOTH` dalam `PDO::fetch()` atau `PDO::fetchAll()`.
-
-### **6. **`PDO::fetch_object()`**
-
-`PDO::fetch_object()` tidak secara langsung tersedia dalam PDO, tetapi kalian bisa mencapainya menggunakan `PDO::FETCH_OBJ` dalam `PDO::fetch()` atau `PDO::fetchAll()`.
-
-### **Kesimpulan Pemilihan:**
-- **Gunakan `fetch_assoc()`** ketika kalian hanya membutuhkan data dengan nama kolom sebagai kunci.
-- **Gunakan `fetch_row()`** ketika kalian lebih nyaman dengan indeks numerik.
-- **Gunakan `fetch_array()`** ketika kalian membutuhkan keduanya.
-- **Gunakan `fetch_object()`** ketika kalian lebih nyaman mengakses data sebagai properti objek, terutama jika bekerja dalam lingkungan OOP.
-
-## **3. Implementasi CRUD dengan PDO**
-
-### **Create (Membuat Data)**
 ```php
-<?php
 $sql = "INSERT INTO siswa (nama, email) VALUES (:nama, :email)";
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['nama' => 'Alya', 'email' => 'alya@example.com']);
-
-echo "Data berhasil ditambahkan! ID terakhir: " . $pdo->lastInsertId();
-?>
+$stmt->execute(['nama' => 'Rani', 'email' => 'rani@example.com']);
 ```
 
-### **Read (Membaca Data)**
+### b. Read
+
 ```php
-<?php
 $sql = "SELECT * FROM siswa WHERE id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => 1]);
 $siswa = $stmt->fetch(PDO::FETCH_ASSOC);
-
-echo "Nama: " . $siswa['nama'] . " - Email: " . $siswa['email'];
-?>
 ```
 
-### **Update (Memperbarui Data)**
+### c. Update
+
 ```php
-<?php
-$sql = "UPDATE siswa SET email = :email WHERE id = :id";
+$sql = "UPDATE siswa SET nama = :nama WHERE id = :id";
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['email' => 'alyabaru@example.com', 'id' => 1]);
-
-echo "Data berhasil diperbarui!";
-?>
+$stmt->execute(['nama' => 'Rani Baru', 'id' => 1]);
 ```
 
-### **Delete (Menghapus Data)**
+### d. Delete
+
 ```php
-<?php
 $sql = "DELETE FROM siswa WHERE id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => 1]);
-
-echo "Data berhasil dihapus!";
-?>
 ```
-
-## **4. Studi Kasus: Implementasi PDO dalam Aplikasi Sederhana**
-
-### **Deskripsi Masalah**
-Kita akan membuat aplikasi sederhana untuk mengelola data siswa menggunakan PDO. Aplikasi ini akan mencakup fitur untuk menambah, membaca, memperbarui, dan menghapus data siswa dari database.
-
-### **Langkah-Langkah Implementasi:**
-
-1. **Membuat Koneksi PDO ke Database:**
-   - Gunakan contoh kode koneksi di atas untuk menghubungkan aplikasi ke database.
-
-2. **Mengimplementasikan CRUD:**
-   - Gunakan contoh kode CRUD untuk membuat, membaca, memperbarui, dan menghapus data siswa.
-
-3. **Menambahkan Fitur Keamanan:**
-   - Gunakan prepared statements untuk semua query.
-   - Implementasikan transaksi jika ada lebih dari satu operasi yang harus dijalankan bersama.
-
-### **Kesimpulan**
-Dengan memahami dan menggunakan metode pengambilan data di PDO, kalian dapat menyesuaikan cara kalian mengambil hasil query sesuai kebutuhan aplikasi. Memilih metode yang tepat berdasarkan skenario dapat meningkatkan efisiensi dan kemudahan pemeliharaan aplikasi kalian.
 
 ---
 
-### **Aktivitas**
+## **6. Penanganan Error dan Debugging**
 
-1. **Diskusi Kelompok:**
-   - **Topik:** Bagaimana memilih metode fetch yang tepat berdasarkan skenario yang kalian hadapi?
-   - **Tujuan:** Memahami kapan menggunakan masing-masing metode fetch di PDO.
+### Try...Catch Block
 
-2. **Latihan:**
-   - **Tugas:** Buatlah aplikasi PHP sederhana yang mengimplementasikan CRUD menggunakan PDO dengan berbagai metode fetch, dan tentukan kapan menggunakan masing-masing metode berdasarkan kebutuhan.
+```php
+try {
+    $pdo = new PDO($dsn, $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Koneksi gagal: " . $e->getMessage();
+}
+```
+
+### Debug Mode:
+
+```php
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+```
+
+---
+
+## **7. Studi Kasus: Aplikasi Data Siswa**
+
+### Fitur:
+
+* Form input siswa (nama & email)
+* Tampilkan daftar siswa
+* Edit dan hapus data siswa
+
+### Struktur File:
+
+```
+📁 siswa_app/
+ ├── index.php
+ ├── tambah.php
+ ├── edit.php
+ ├── hapus.php
+ └── koneksi.php
+```
+
+### Koneksi (koneksi.php):
+
+```php
+<?php
+$pdo = new PDO("mysql:host=localhost;dbname=sekolah", "root", "");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+?>
+```
+
+---
+
+## **8. Tips dan Best Practice**
+
+* Selalu gunakan **prepared statement** — tidak ada alasan menggunakan query mentah.
+* Gunakan `try...catch` di semua operasi database.
+* Atur `PDO::ATTR_DEFAULT_FETCH_MODE` ke `PDO::FETCH_ASSOC` agar lebih ringkas.
+* Gunakan transaksi (`beginTransaction()`, `commit()`, `rollBack()`) untuk operasi kompleks.
+* Pisahkan koneksi ke file sendiri agar mudah digunakan ulang.
+
+---
+
+## **9. Aktivitas Siswa**
+
+### 🔍 Diskusi:
+
+* Apa perbedaan utama antara PDO dan MySQLi?
+* Dalam kondisi apa `FETCH_OBJ` lebih baik daripada `FETCH_ASSOC`?
+
+### 🧠 Latihan:
+
+1. Buat form tambah data siswa (PDO + validasi dasar).
+2. Tampilkan data dalam tabel.
+3. Buat fitur edit dan hapus siswa.
+4. Bonus: Tambahkan fitur pencarian nama siswa.
+
+---
+
+## **10. Referensi Resmi**
+
+* [PHP Manual: PDO](https://www.php.net/manual/en/book.pdo.php)
+* [PHP.net - PDOStatement](https://www.php.net/manual/en/class.pdostatement.php)
+* [PHP 8.3 Docs](https://www.php.net/releases/8.3/en.php)
 
 ---
 ### Navigasi
