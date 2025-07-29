@@ -1,94 +1,213 @@
-# **Bab 1 - Pengantar Teknologi Web dan Backend**
+# **Bab 1 – Pengantar Teknologi Web dan Backend**
 
-## **Tujuan Pembelajaran**
-Pada akhir pertemuan ini, kalian diharapkan mampu:
-- Memahami dasar-dasar teknologi web dan bagaimana frontend dan backend saling berinteraksi.
-- Mengenal peran PHP dalam pengembangan aplikasi backend.
-- Menjelaskan dengan mudah alur kerja dari permintaan HTTP hingga respon yang diterima oleh pengguna.
+## **🎯 Tujuan Pembelajaran**
 
-## **Materi yang Akan Dibahas**
+Pada akhir pembelajaran ini, kalian diharapkan mampu:
+
+* Memahami dasar-dasar teknologi web dan bagaimana frontend dan backend saling berinteraksi.
+* Menjelaskan konsep client-server dalam dunia web.
+* Mengenal peran PHP dalam pengembangan aplikasi backend.
+* Menjelaskan alur kerja permintaan HTTP hingga respon yang diterima oleh pengguna.
+
+---
+
+## **📚 Materi yang Akan Dibahas**
+
 1. Apa Itu Teknologi Web?
 2. Perbedaan antara Frontend dan Backend
-3. Pengenalan PHP sebagai Bahasa Pemrograman Backend
-4. Alur Kerja Permintaan HTTP hingga Respon
+3. Konsep Client dan Server
+4. Apa Itu HTTP dan URL?
+5. Pengenalan PHP sebagai Bahasa Pemrograman Backend
+6. Alur Kerja Permintaan HTTP hingga Respon
 
 ---
 
 ## **1. Apa Itu Teknologi Web?**
 
-Bayangkan kalian sedang berjalan-jalan di halaman sekolah, SMK Assalam Samarang. Setiap ruangan kelas adalah bagian dari sekolah yang kalian bisa lihat, sentuh, dan masuk ke dalamnya. Di dalam kelas, ada papan tulis, meja, kursi, dan alat belajar lainnya. Nah, ini mirip dengan **Frontend**—bagian dari teknologi web yang bisa kalian lihat dan berinteraksi langsung.
+Bayangkan kalian sedang berada di SMK Assalam Samarang. Setiap ruangan kelas adalah bagian dari sekolah yang bisa kalian lihat, sentuh, dan gunakan. Ada papan tulis, meja, kursi, dan alat pembelajaran lainnya. Inilah analogi **Frontend**—bagian dari teknologi web yang dapat dilihat dan digunakan langsung oleh pengguna.
 
-Di sisi lain, ada banyak hal yang kalian mungkin tidak lihat secara langsung, seperti bagaimana listrik bekerja untuk menyalakan lampu kelas, atau bagaimana sistem keamanan sekolah menjaga semua tetap aman. Bagian-bagian yang bekerja di belakang layar ini bisa kita ibaratkan sebagai **Backend**—meskipun tidak terlihat, perannya sangat penting untuk memastikan semuanya berjalan lancar.
+Tapi di balik itu, ada hal-hal yang tidak terlihat: jaringan listrik, sistem keamanan, pengelolaan jadwal oleh staf TU, dan server sekolah. Ini menggambarkan **Backend**—bagian yang bekerja di balik layar untuk memastikan semuanya berjalan lancar.
 
-### **Definisi Teknologi Web**
-Teknologi web adalah sekumpulan alat dan metode yang kita gunakan untuk membuat, mengelola, dan menjalankan aplikasi atau situs web. Setiap kali kalian membuka website sekolah untuk melihat jadwal pelajaran atau nilai, kalian sedang berinteraksi dengan teknologi web.
+### **🧾 Definisi Teknologi Web**
 
-Di dunia teknologi web, ada dua komponen utama yang harus kalian kenal:
-- **Frontend**: Bagian yang kalian lihat dan gunakan langsung, seperti tampilan halaman login, menu navigasi, atau halaman informasi.
-- **Backend**: Bagian yang bekerja di balik layar untuk memastikan semua data diolah dengan benar, seperti ketika kalian memasukkan data login dan sistem memverifikasinya di database.
+Teknologi web adalah kumpulan alat, bahasa pemrograman, dan sistem yang memungkinkan kita untuk membuat, menjalankan, dan mengakses aplikasi atau situs web melalui internet.
+
+Setiap kali kalian membuka situs web—seperti website sekolah, marketplace, atau media sosial—kalian sedang menggunakan teknologi web.
+
+Dua komponen utama:
+
+* **Frontend**: Tampilan dan antarmuka yang digunakan oleh pengguna.
+* **Backend**: Mesin di balik layar yang memproses data dan logika aplikasi.
+
+---
 
 ## **2. Perbedaan antara Frontend dan Backend**
 
 ### **Frontend: Wajah dari Sebuah Aplikasi**
-Frontend adalah bagian dari aplikasi web yang kalian lihat dan gunakan. Setiap kali kalian klik tombol, isi formulir, atau melihat gambar di halaman web, kalian sedang berinteraksi dengan frontend. 
 
-**Teknologi yang Digunakan di Frontend:**
-- **HTML** (Hypertext Markup Language) untuk membuat struktur halaman.
-- **CSS** (Cascading Style Sheets) untuk mengatur tampilan, seperti warna dan tata letak.
-- **JavaScript** untuk menambah interaktivitas, seperti animasi atau validasi form.
+Frontend adalah bagian dari aplikasi web yang terlihat oleh pengguna dan digunakan untuk berinteraksi, seperti formulir login, menu, gambar, atau teks.
 
-Contoh sederhananya adalah ketika kalian membuka halaman login di website sekolah, bagian yang kalian lihat dan isi adalah frontend.
+#### Teknologi Umum yang Digunakan:
 
-### **Backend: Mesin Penggerak di Balik Layar**
-Backend adalah otak dari aplikasi web, yang mengatur bagaimana data diproses dan disimpan. Ketika kalian memasukkan data login dan mengklik "Masuk," backend akan menerima data tersebut, memeriksanya di database, dan mengirimkan kembali hasilnya ke frontend.
+* **HTML** – struktur dasar halaman.
+* **CSS** – tampilan, warna, tata letak.
+* **JavaScript** – interaktivitas (seperti klik tombol, validasi form, efek animasi).
 
-**Teknologi yang Digunakan di Backend:**
-- **Bahasa Pemrograman Server-Side** seperti PHP, Python, atau Ruby.
-- **Database** seperti MySQL atau PostgreSQL untuk menyimpan dan mengelola data.
-- **Server** (misalnya, Apache atau Nginx) untuk mengelola permintaan dan respon antara pengguna dan server.
+**Contoh**: Ketika kalian membuka halaman login website sekolah, tampilan form itulah bagian dari frontend.
 
-Analoginya, bayangkan kalian sedang berbelanja di kantin sekolah. Kalian (frontend) memesan makanan kepada ibu kantin (backend). Ibu kantin kemudian mengambil makanan dari dapur (database) dan memberikannya kepada kalian setelah memproses pesanan tersebut.
+---
 
-## **3. Pengenalan PHP sebagai Bahasa Pemrograman Backend**
+### **Backend: Otak dan Mesin Penggerak di Balik Aplikasi**
 
-PHP adalah bahasa pemrograman yang sangat populer dan sering digunakan untuk mengembangkan bagian backend dari sebuah aplikasi web.
+Backend adalah bagian dari aplikasi web yang tidak terlihat, tetapi menjalankan logika dan mengelola data. Ia memproses permintaan dari frontend, berinteraksi dengan database, lalu mengirimkan respon kembali.
 
-### **Mengapa Memilih PHP?**
-- **Mudah Dipelajari**: PHP dirancang agar mudah dipahami, terutama untuk pemula. Kalian tidak perlu memiliki latar belakang teknis yang mendalam untuk mulai belajar PHP.
-- **Banyak Sumber Belajar**: Karena banyak digunakan, kalian bisa dengan mudah menemukan tutorial, forum, dan komunitas yang siap membantu.
-- **Populer dan Andal**: Banyak situs web besar yang menggunakan PHP, seperti Facebook dan WordPress, menunjukkan bahwa PHP bisa diandalkan untuk aplikasi yang besar dan kompleks.
+#### Teknologi Umum yang Digunakan:
+
+* Bahasa pemrograman seperti PHP, Python, Node.js, atau Ruby.
+* Database seperti MySQL, PostgreSQL, MongoDB.
+* Web server seperti Apache, Nginx.
+
+**Analogi**: Kalian (frontend) memesan makanan ke ibu kantin (backend). Ibu kantin mengambil makanan dari dapur (database), memproses pesanan, lalu memberikan makanan ke kalian.
+
+---
+
+## **3. Konsep Client dan Server**
+
+### **Client**
+
+Client adalah perangkat atau aplikasi yang digunakan oleh pengguna untuk mengakses web—biasanya melalui browser seperti Chrome, Firefox, atau Edge.
+
+### **Server**
+
+Server adalah komputer yang menyimpan dan menjalankan aplikasi web. Ia menerima permintaan (request) dari client dan mengirimkan balasan (response).
+
+**Contoh**: Saat kalian membuka browser dan mengakses `https://sekolahku.sch.id`, browser (client) mengirim permintaan ke server sekolah. Server akan memproses permintaan dan mengirimkan tampilan halaman kembali ke browser kalian.
+
+---
+
+## **4. Apa Itu HTTP dan URL?**
+
+### **HTTP (Hypertext Transfer Protocol)**
+
+Adalah protokol (aturan komunikasi) yang digunakan untuk mengirim dan menerima data antara browser dan server.
+
+* HTTP digunakan untuk permintaan seperti "tolong tampilkan halaman profil saya" atau "simpan data pendaftaran ini."
+* Sekarang, mayoritas web menggunakan versi aman: **HTTPS** (dengan enkripsi data).
+
+### **URL (Uniform Resource Locator)**
+
+URL adalah alamat web yang kalian ketik di browser, misalnya `https://www.google.com`. URL menunjukkan **lokasi** sumber daya (halaman web, gambar, file, dll) di internet.
+
+**Struktur URL:**
+
+```
+https://      www.sekolahku.sch.id       /jadwal
+ protokol        domain situs             path
+```
+
+---
+
+## **5. Pengenalan PHP sebagai Bahasa Pemrograman Backend**
+
+### **Apa itu PHP?**
+
+PHP (Hypertext Preprocessor) adalah bahasa pemrograman server-side yang digunakan untuk membuat aplikasi web dinamis. Artinya, halaman web dapat berubah-ubah sesuai dengan data yang dikirim atau diterima.
+
+### **Sejarah Singkat**
+
+PHP pertama kali dibuat oleh Rasmus Lerdorf pada tahun 1994. Awalnya hanya digunakan untuk keperluan pribadi, tetapi berkembang menjadi bahasa backend paling populer dan digunakan oleh jutaan website.
+
+### **Mengapa PHP Populer?**
+
+* Mudah dipelajari untuk pemula.
+* Banyak dokumentasi dan komunitas aktif.
+* Digunakan oleh berbagai CMS besar seperti WordPress.
+* Gratis dan open source.
 
 ### **Peran PHP dalam Backend**
-PHP bertindak sebagai penghubung antara frontend dan database. Misalnya, ketika kalian mengisi formulir di halaman pendaftaran siswa baru dan menekan tombol "Kirim", PHP akan mengambil data tersebut, memeriksanya, menyimpannya di database, dan kemudian memberikan pesan konfirmasi ke frontend.
 
-**Contoh Nyata di SMK Assalam Samarang:**
-Misalnya, Hani Fuziyani dari kelas XI PPLG A ingin melihat hasil ujian. Hani masuk ke situs sekolah, memasukkan nomor ujian, dan menekan tombol "Lihat Nilai." Di sini, PHP akan memproses permintaan Hani, mengambil data nilai dari database, dan mengirimkan hasilnya kembali ke browser Hani.
+PHP bertindak sebagai "penghubung" antara frontend dan database.
 
-## **4. Alur Kerja Permintaan HTTP hingga Respon**
-
-Ketika kalian mengetik URL di browser dan menekan Enter, ada serangkaian proses yang terjadi sebelum halaman yang kalian inginkan muncul di layar. Mari kita lihat bagaimana alur kerja ini terjadi secara sederhana:
-
-1. **Permintaan HTTP (HTTP Request)**: Browser kalian mengirimkan permintaan ke server, meminta halaman yang kalian inginkan.
-2. **Pemrosesan di Server**: Server menerima permintaan ini dan mengirimkannya ke aplikasi backend (misalnya PHP) untuk diproses.
-3. **Interaksi dengan Database**: Jika data diperlukan (misalnya, untuk menampilkan nilai atau informasi siswa), PHP akan berkomunikasi dengan database untuk mendapatkan data yang dibutuhkan.
-4. **Respon HTTP (HTTP Response)**: Setelah diproses, PHP mengirimkan hasilnya kembali ke server, yang kemudian mengirimkannya ke browser kalian sebagai respon.
-5. **Tampilan di Browser**: Browser menerima respon ini dan menampilkan halaman yang kalian minta, seperti halaman profil siswa atau hasil ujian.
-
-**Contoh Nyata:**
-Misalnya, Ahmad Zaki Aprizal dari kelas XI PPLG B ingin melihat jadwal pelajarannya. Dia membuka browser, mengetik URL website sekolah, dan menekan Enter. Browsernya mengirimkan permintaan ke server sekolah, PHP memproses permintaan tersebut, mengambil data jadwal dari database, dan menampilkan jadwal Ahmad di browser.
+**Contoh:**
+Saat Hani Fuziyani dari kelas XI PPLG A ingin melihat hasil ujian, ia memasukkan nomor ujian di halaman web. PHP mengambil data tersebut, mencocokkannya ke database, lalu menampilkan nilainya ke layar browser.
 
 ---
 
-### **Aktivitas**
+## **6. Alur Kerja Permintaan HTTP hingga Respon**
 
-1. **Diskusi Kelompok:**
-   - **Topik:** Mengapa backend penting dalam aplikasi web?
-   - **Tujuan:** Memahami peran kritis backend dalam menjaga kelancaran aplikasi, terutama dalam hal keamanan dan keandalan.
+Untuk memahami bagaimana aplikasi web bekerja, mari kita pelajari alurnya dari awal sampai akhir:
 
-2. **Latihan:**
-   - **Tugas:** Identifikasi teknologi frontend dan backend yang digunakan dalam aplikasi web yang kalian gunakan sehari-hari. Buat diagram sederhana yang menggambarkan alur kerja permintaan hingga respon.
-   - **Output:** Diagram yang menunjukkan bagaimana frontend berinteraksi dengan backend dalam aplikasi tersebut.
+### **Langkah-langkah Alur Request–Response:**
+
+1. **Client Mengirim HTTP Request**
+   Pengguna membuka browser dan mengetik URL lalu menekan Enter. Browser mengirimkan permintaan ke server.
+
+2. **Server Menerima dan Memproses**
+   Web server (seperti Apache) menerima permintaan tersebut dan mengarahkan ke file PHP terkait.
+
+3. **PHP Mengeksekusi Logika Backend**
+   PHP memproses permintaan: apakah perlu memeriksa database? Apakah perlu menampilkan halaman khusus?
+
+4. **Akses ke Database (Jika Diperlukan)**
+   Jika dibutuhkan, PHP mengirimkan perintah SQL ke database (MySQL, misalnya) untuk mengambil atau menyimpan data.
+
+5. **Server Mengirim HTTP Response**
+   Hasil akhir dikirim kembali ke browser berupa HTML, CSS, dan JavaScript.
+
+6. **Browser Menampilkan Hasil ke Pengguna**
+   Browser menampilkan halaman atau data sesuai dengan hasil respon dari server.
 
 ---
-### Navigasi
-[Home 🏘](../README.md) || [Konfigurasi ⏭](../2-konfigurasi/README.md)
+
+### **Contoh Kasus**
+
+> Ahmad Zaki Aprizal ingin melihat jadwal pelajarannya. Dia membuka browser dan mengetik URL website sekolah, lalu menekan Enter. Browser mengirim permintaan ke server sekolah. PHP memproses permintaan tersebut, mengambil data dari database, lalu menampilkan jadwal Ahmad di browsernya.
+
+---
+
+### **🖼 Ilustrasi Alur Kerja (Text Diagram)**
+
+```
+[Browser Pengguna]
+      |
+      | 1. HTTP Request (GET/POST)
+      v
+[Web Server (Apache/Nginx)]
+      |
+      | 2. Kirim ke PHP
+      v
+[PHP Backend Script]
+      |
+      | 3. Query ke Database
+      v
+[Database MySQL]
+      |
+      | 4. Data Dikirim Kembali
+      v
+[PHP Memproses dan Kembalikan Respon]
+      |
+      | 5. HTTP Response (HTML)
+      v
+[Browser Menampilkan Halaman]
+```
+
+---
+
+## **🧠 Aktivitas dan Latihan**
+
+### **Diskusi Kelompok:**
+
+* **Topik:** Mengapa backend sangat penting dalam aplikasi web?
+* **Panduan Diskusi:** Fokuskan pada peran backend dalam keamanan data, kecepatan pemrosesan, dan interaksi dengan database.
+
+### **Latihan Individu:**
+
+1. Pilih salah satu aplikasi web yang kalian sering gunakan (misalnya Shopee, Instagram Web, atau website sekolah).
+2. Identifikasi komponen frontend dan backend dari aplikasi tersebut.
+3. Buat diagram alur request-respon dari salah satu fitur (misalnya login atau menampilkan data).
+
+---
+
+### 🧭 Navigasi
+
+[🏘 Home](../README.md) | [⏭ Bab 2 - Konfigurasi](../2-konfigurasi/README.md)
