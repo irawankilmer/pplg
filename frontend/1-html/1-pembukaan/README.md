@@ -1,61 +1,157 @@
-### **Bab 1: Teknologi Internet**
-
-#### **1.1. Teknologi Internet**
-
-**Apa Itu Internet?**
-Internet adalah jaringan global yang menghubungkan jutaan komputer di seluruh dunia, memungkinkan mereka untuk berkomunikasi dan berbagi informasi. Internet bekerja melalui kombinasi perangkat keras, perangkat lunak, dan protokol yang memungkinkan data mengalir dari satu perangkat ke perangkat lain.
-
-**Sejarah Singkat Internet**
-Internet bermula dari ARPANET pada tahun 1960-an, yang merupakan proyek Departemen Pertahanan AS. Awalnya, ARPANET digunakan untuk menghubungkan komputer-komputer di berbagai universitas dan lembaga penelitian untuk berbagi informasi. Seiring waktu, jaringan ini berkembang menjadi internet seperti yang kita kenal sekarang, dengan jutaan komputer yang terhubung di seluruh dunia.
-
-**Komponen Utama Internet**
-- **Perangkat Keras**: Meliputi komputer, router, server, kabel, dan perangkat lainnya yang secara fisik menghubungkan jaringan.
-- **Perangkat Lunak**: Ini mencakup browser web, server aplikasi, protokol jaringan, dan banyak lagi yang memungkinkan komunikasi dan interaksi di internet.
-- **Protokol**: Protokol adalah aturan dan format yang mengatur bagaimana data ditransfer dan diterima melalui jaringan. Protokol utama yang digunakan di internet adalah TCP/IP (Transmission Control Protocol/Internet Protocol).
-
-**Bagaimana Internet Mengubah Dunia**
-Internet telah mengubah cara kita hidup, bekerja, dan berkomunikasi. Dari belanja online hingga pendidikan, hampir semua aspek kehidupan kita dipengaruhi oleh internet. Internet juga memainkan peran penting dalam globalisasi, menghubungkan orang-orang dari berbagai belahan dunia.
-
-#### **1.2. Bagaimana Internet Bekerja**
-
-**Dasar Cara Kerja Internet**
-Internet bekerja dengan mengirimkan data dalam bentuk paket dari satu komputer ke komputer lain melalui jaringan. Setiap perangkat yang terhubung ke internet memiliki alamat IP (Internet Protocol) unik yang digunakan untuk mengidentifikasi dan mengarahkan paket data.
-
-**Langkah-Langkah dalam Pengiriman Data**
-1. **Pembentukan Paket**: Ketika Anda mengirim data, seperti email atau permintaan halaman web, data tersebut dipecah menjadi paket-paket kecil.
-2. **Pengiriman Paket**: Paket-paket ini dikirim melalui jaringan menggunakan router yang memandu mereka menuju tujuan akhir mereka.
-3. **Penerimaan Paket**: Di sisi penerima, paket-paket ini disusun kembali menjadi data asli.
-4. **Pengembalian Data**: Setelah data diterima dan diproses, respon dikirim kembali ke perangkat pengirim melalui proses yang sama.
-
-**Protokol Jaringan**
-Protokol adalah aturan yang digunakan oleh komputer untuk berkomunikasi satu sama lain. Protokol utama yang digunakan di internet adalah TCP/IP, yang memastikan bahwa data dikirimkan dengan benar dan tiba di tujuan dengan utuh. 
-
-- **TCP (Transmission Control Protocol)**: Bertanggung jawab untuk memecah data menjadi paket, memastikan bahwa semua paket tiba dengan benar, dan menyusunnya kembali di tujuan.
-- **IP (Internet Protocol)**: Menangani alamat pengiriman paket data, memastikan bahwa paket-paket tersebut sampai ke komputer yang tepat.
-
-**Domain Name System (DNS)**
-DNS adalah sistem yang menerjemahkan nama domain (seperti www.contoh.com) menjadi alamat IP sehingga komputer dapat menemukan dan mengakses situs web yang dimaksud. DNS bekerja seperti buku telepon internet, menghubungkan nama situs web dengan alamat IP yang sesuai.
-
-**Routing**
-Routing adalah proses mengarahkan paket data melalui berbagai jaringan sampai mencapai tujuan akhirnya. Router adalah perangkat yang melakukan tugas ini, memastikan bahwa data mengambil rute tercepat dan paling efisien melalui jaringan.
-
-#### **1.3. Pembahasan Lain Tentang Internet**
-
-**Keamanan Internet**
-Keamanan internet menjadi semakin penting seiring dengan semakin banyaknya data sensitif yang ditransmisikan secara online. Teknologi seperti SSL/TLS, enkripsi, firewall, dan VPN digunakan untuk melindungi data dari akses yang tidak sah dan serangan cyber.
-
-**Kecepatan dan Bandwidth**
-Kecepatan internet adalah seberapa cepat data dapat ditransfer dari satu tempat ke tempat lain, biasanya diukur dalam megabit per detik (Mbps). Bandwidth mengacu pada jumlah data yang dapat ditransfer dalam waktu tertentu. Semakin tinggi bandwidth, semakin cepat internet.
-
-**Internet of Things (IoT)**
-IoT adalah konsep di mana perangkat sehari-hari seperti lemari es, mobil, dan lampu dihubungkan ke internet dan dapat saling berkomunikasi. Ini membuka berbagai kemungkinan baru untuk otomatisasi dan kontrol jarak jauh.
-
-**Cloud Computing**
-Cloud computing adalah layanan yang memungkinkan penyimpanan dan pengolahan data dilakukan di server jarak jauh yang diakses melalui internet. Ini memungkinkan akses data dari mana saja dan memungkinkan perusahaan untuk skala penyimpanan dan komputasi mereka sesuai kebutuhan.
-
-**Perkembangan Teknologi Internet**
-Internet terus berkembang dengan teknologi baru seperti 5G, yang menjanjikan kecepatan yang jauh lebih cepat dan latensi yang lebih rendah dibandingkan teknologi sebelumnya. Ini akan membuka pintu bagi aplikasi baru seperti realitas virtual, augmented reality, dan IoT yang lebih canggih.
+### **Bab 1: Teknologi Internet untuk Front-End Developer**
 
 ---
-### Navigasi
-[Home🏠](../../README.md) || [Perkenalan HTML⏭](../2-perkenalan-html/README.md)
+
+#### **1.1. Apa Itu Internet?**
+
+**Definisi:**
+Internet adalah jaringan komputer global yang saling terhubung melalui berbagai media komunikasi dan protokol standar, yang memungkinkan pertukaran data dan layanan secara real-time di seluruh dunia.
+
+**Sejarah Singkat:**
+
+* **1960-an:** ARPANET oleh Departemen Pertahanan AS.
+* **1980-an:** Protokol TCP/IP distandarisasi.
+* **1990-an:** WWW ditemukan oleh Tim Berners-Lee → lahirnya web browser.
+* **2000-an hingga sekarang:** Perkembangan broadband, 4G/5G, Cloud, IoT.
+
+**Manfaat Internet:**
+
+* Komunikasi (email, pesan instan)
+* Informasi (pencarian, berita)
+* Transaksi (e-commerce, perbankan)
+* Hiburan (streaming, game)
+* Kolaborasi (Google Docs, GitHub)
+
+---
+
+#### **1.2. Internet vs Web (WWW)**
+
+* **Internet:** Infrastruktur jaringan global.
+* **Web (WWW):** Layanan berbasis internet yang menggunakan HTTP(S), terdiri dari halaman web yang diakses melalui browser.
+
+**Perbedaan HTTP & HTTPS:**
+
+* HTTP: Hypertext Transfer Protocol (tanpa enkripsi)
+* HTTPS: HTTP + SSL/TLS (data dienkripsi, lebih aman)
+
+**URL:** Uniform Resource Locator — alamat dari suatu resource (gambar, halaman, file) di web.
+Contoh: `https://www.contoh.com/produk?id=123`
+
+**Struktur URL:**
+
+* `https:` → skema/protokol
+* `www.contoh.com` → domain
+* `/produk` → path
+* `?id=123` → query string
+
+---
+
+#### **1.3. Bagaimana Internet Bekerja**
+
+**1. Alamat IP:**
+Setiap perangkat memiliki alamat IP unik (IPv4 atau IPv6).
+
+**2. DNS (Domain Name System):**
+Menerjemahkan domain menjadi IP address. Misalnya, `google.com` → `142.250.196.46`
+
+**3. Client - Server:**
+
+* **Client (Browser)** mengirim permintaan HTTP ke **Server Web**
+* Server mengirim **respon HTTP** berisi konten (HTML, CSS, JS)
+
+**4. Protokol TCP/IP:**
+
+* **TCP:** Memecah data menjadi paket dan menyusun ulang.
+* **IP:** Mengirimkan paket ke tujuan.
+
+**5. Routing:**
+Router meneruskan paket melalui jalur tercepat hingga sampai ke alamat tujuan.
+
+---
+
+#### **1.4. Komponen Internet**
+
+* **Perangkat Keras:**
+
+  * Komputer, server, router, switch, modem, kabel serat optik
+* **Perangkat Lunak:**
+
+  * Browser (Chrome, Firefox), protokol (HTTP, FTP), server (Apache, Nginx)
+* **Protokol:**
+
+  * TCP/IP, HTTP/HTTPS, FTP, WebSocket
+
+---
+
+#### **1.5. Peran Internet dalam Front-End Web Development**
+
+* Menyediakan akses ke **library eksternal** (CDN)
+* Mengakses data melalui **API (REST/JSON/GraphQL)**
+* Menghosting file di server agar dapat diakses melalui URL
+* Integrasi layanan pihak ketiga (Google Fonts, Maps, Firebase, dll)
+
+**Contoh Proses:**
+
+1. User mengakses `https://tokoku.com`
+2. Browser melakukan DNS lookup
+3. Request dikirim ke server
+4. Server mengirim HTML → Browser render halaman
+5. Browser juga mengambil CSS, JS, gambar via URL
+
+---
+
+#### **1.6. Keamanan dan Infrastruktur Internet**
+
+* **SSL/TLS:** Enkripsi koneksi (ditandai dengan ikon gembok di browser)
+* **Firewall:** Menyaring lalu lintas berbahaya
+* **VPN:** Mengamankan koneksi dan menyembunyikan identitas
+* **CDN (Content Delivery Network):** Mempercepat pengiriman konten dari lokasi server terdekat
+
+---
+
+#### **1.7. Teknologi Terkait Internet**
+
+* **Cloud Computing:** Akses aplikasi/data via internet (contoh: Google Drive, AWS)
+* **Internet of Things (IoT):** Perangkat pintar yang terhubung internet (sensor, CCTV, smart home)
+* **WebSocket:** Komunikasi dua arah real-time (digunakan pada chat, game online)
+
+---
+
+#### **1.8. Alat Bantu Developer Web**
+
+* **Developer Tools (DevTools):** Debugging HTML, CSS, JS
+* **Network Tools:** Ping, traceroute, DNS lookup
+* **F12 Tools (di browser):** Melihat permintaan dan respon HTTP
+* **Lighthouse:** Audit performa dan aksesibilitas website
+
+---
+
+#### **1.9. Perkembangan Teknologi Internet (terkini)**
+
+* **5G:** Koneksi lebih cepat, mendukung aplikasi real-time
+* **Progressive Web Apps (PWA):** Aplikasi web yang bisa berjalan offline
+* **HTTP/3:** Protokol web generasi baru yang lebih cepat dan aman
+* **Edge Computing:** Memproses data di dekat pengguna (di "edge") untuk latensi rendah
+
+---
+
+#### **Aktivitas dan Latihan**
+
+1. **Diskusi Kelas:**
+
+   * Apa perbedaan internet dan web?
+   * Bagaimana protokol HTTP bekerja?
+
+2. **Tugas Individu:**
+
+   * Gambar dan jelaskan alur permintaan dari browser ke server sampai halaman tampil.
+
+3. **Latihan:**
+
+   * Gunakan DevTools untuk memeriksa URL gambar, CSS, dan JS dari suatu situs.
+
+---
+
+### **Navigasi**
+
+[🏠 Home](../../README.md) | [⏭ Bab 2: Pengenalan HTML](../2-perkenalan-html/README.md)
