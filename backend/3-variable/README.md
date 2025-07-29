@@ -161,5 +161,184 @@ Di sini, `NAMA_SEKOLAH` adalah konstanta yang nilainya tetap "SMK Assalam Samara
    - **Output:** Skrip PHP yang menampilkan informasi siswa secara dinamis dengan nama sekolah yang tetap.
 
 ---
+# **Bab 3 Lanjutan – Variable Scope dalam PHP**
+
+## 🎯 **Tujuan Pembelajaran**
+
+Setelah mempelajari materi ini, kalian diharapkan mampu:
+
+* Menjelaskan apa itu **lingkup variabel (variable scope)**.
+* Membedakan antara **local**, **global**, dan **static scope**.
+* Menggunakan variabel dengan benar dalam berbagai lingkup di dalam fungsi PHP.
+
+---
+
+## 🧠 **Apa Itu Variable Scope?**
+
+### **Definisi Sederhana:**
+
+**Variable Scope** adalah **batas area** di mana suatu variabel dapat dikenali dan digunakan oleh program.
+
+---
+
+### 📦 **Analogi Sederhana**:
+
+Bayangkan kalian berada di SMK Assalam. Setiap ruangan di sekolah (kelas, ruang guru, TU) punya **barang khusus** yang hanya bisa digunakan di ruangan itu.
+
+* Misalnya, **kapur tulis** hanya ada di ruang kelas.
+* **Printer** hanya ada di ruang TU.
+* Barang-barang ini tidak bisa digunakan di ruangan lain tanpa izin.
+
+**Nah, variabel dalam PHP juga seperti itu.** Ada yang hanya bisa digunakan di dalam fungsi tertentu, dan ada yang bisa digunakan di mana-mana.
+
+---
+
+## 🧩 **Jenis-jenis Variable Scope di PHP**
+
+### 1. **Local Scope (Lingkup Lokal)**
+
+Variabel **hanya bisa diakses dari dalam blok kode tempat ia dideklarasikan**, seperti di dalam fungsi.
+
+```php
+function tampilNama() {
+    $nama = "Hani";
+    echo $nama;
+}
+
+tampilNama(); // Output: Hani
+echo $nama;   // ERROR: $nama tidak dikenal di luar fungsi
+```
+
+📝 **Penjelasan:**
+Variabel `$nama` dibuat **di dalam fungsi**, jadi hanya bisa digunakan di dalam fungsi itu. Di luar fungsi, PHP tidak tahu apa itu `$nama`.
+
+---
+
+### 2. **Global Scope (Lingkup Global)**
+
+Variabel yang dideklarasikan **di luar fungsi** bersifat global. Tapi, **tidak langsung bisa diakses dari dalam fungsi**, kecuali menggunakan kata kunci `global`.
+
+```php
+$nama = "Zaki";
+
+function tampilNama() {
+    global $nama;
+    echo $nama;
+}
+
+tampilNama(); // Output: Zaki
+```
+
+📝 **Penjelasan:**
+
+* Variabel `$nama` dibuat **di luar fungsi**.
+* Untuk bisa mengaksesnya **di dalam fungsi**, kita gunakan keyword `global`.
+
+---
+
+### 3. **Static Scope (Lingkup Tetap di Memori)**
+
+Variabel static menyimpan nilainya **meskipun fungsi sudah selesai dipanggil**. Biasanya digunakan untuk **menghitung jumlah pemanggilan fungsi**.
+
+```php
+function hitungKunjungan() {
+    static $jumlah = 0;
+    $jumlah++;
+    echo "Kunjungan ke-$jumlah<br>";
+}
+
+hitungKunjungan(); // Kunjungan ke-1
+hitungKunjungan(); // Kunjungan ke-2
+hitungKunjungan(); // Kunjungan ke-3
+```
+
+📝 **Penjelasan:**
+
+* Variabel `$jumlah` tidak di-reset ke `0` setiap kali fungsi dipanggil karena menggunakan `static`.
+* Nilainya **disimpan antar pemanggilan fungsi**.
+
+---
+
+## 🧪 **Contoh Kombinasi Scope**
+
+```php
+$globalVar = "Halo dari luar fungsi!";
+
+function contohScope() {
+    global $globalVar;
+    $localVar = "Ini dari dalam fungsi";
+
+    echo $globalVar . "<br>";  // Bisa, karena pakai global
+    echo $localVar . "<br>";   // Bisa, karena dalam fungsi
+}
+
+contohScope();
+
+echo $localVar; // ERROR: $localVar tidak dikenal di luar fungsi
+```
+
+---
+
+## ⚠️ **Kesalahan Umum yang Harus Dihindari**
+
+| Kesalahan                                                           | Penjelasan                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------- |
+| Mengakses variabel lokal dari luar fungsi                           | Tidak bisa! Hanya bisa digunakan di dalam fungsi  |
+| Mengubah variabel global dari dalam fungsi tanpa `global`           | Tidak akan berhasil! Harus pakai keyword `global` |
+| Lupa pakai `static` untuk menyimpan nilai antara pemanggilan fungsi | Setiap fungsi akan dimulai dari awal nilainya     |
+
+---
+
+## 🧠 **Ringkasan Tipe Variable Scope**
+
+| Scope      | Lokasi Deklarasi | Dapat Diakses Dari                            | Kata Kunci               |
+| ---------- | ---------------- | --------------------------------------------- | ------------------------ |
+| **Local**  | Di dalam fungsi  | Hanya di dalam fungsi itu                     | (Tidak perlu kata kunci) |
+| **Global** | Di luar fungsi   | Di dalam fungsi (pakai `global`)              | `global`                 |
+| **Static** | Di dalam fungsi  | Hanya di fungsi itu, tetapi nilainya disimpan | `static`                 |
+
+---
+
+## ✍️ **Latihan**
+
+### **Latihan 1 – Coba Dulu!**
+
+```php
+$nama = "Budi";
+
+function sapa() {
+    // Tampilkan isi $nama
+}
+
+sapa();
+```
+
+**Tugas**: Perbaiki kode di atas agar `$nama` bisa ditampilkan dari dalam fungsi.
+
+---
+
+### **Latihan 2 – Static Scope**
+
+Buat fungsi `tambahCounter()` yang menampilkan angka counter yang terus naik setiap kali fungsi dipanggil.
+
+**Output yang diharapkan:**
+
+```
+1
+2
+3
+```
+
+---
+
+## 🗂 **Penutup**
+
+* Setiap variabel punya ruang lingkup (scope).
+* Gunakan **local** untuk variabel sementara.
+* Gunakan **global** jika variabel perlu dipakai di banyak fungsi.
+* Gunakan **static** jika perlu menyimpan nilai fungsi antar pemanggilan.
+
+---
+
 ### Navigasi
 [⏮ Konfigurasi](../2-konfigurasi/README.md) || [Home 🏘](../README.md) || [Tipe Data ⏭](../4-tipe-data/README.md)
