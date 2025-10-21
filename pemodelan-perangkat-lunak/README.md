@@ -16,7 +16,7 @@ Siswa diharapkan mampu:
 ### **Modul 0 – Pendahuluan & Landasan Teori**
 
 * [Definisi Software Engineering & Modeling](./0-pendahuluan/1-definisi.md)
-* Peran pemodelan dalam SDLC (lihat ISO/IEC/IEEE 12207)
+* [Peran pemodelan dalam SDLC (lihat ISO/IEC/IEEE 12207)](./0-pendahuluan/2-peran.md)
 * Landasan SWEBOK v4 (Modeling: KA “Software Engineering Models and Methods”)
 
 ### **Modul 1 – Dasar Pemodelan & UML**

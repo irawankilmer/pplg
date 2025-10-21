@@ -52,7 +52,7 @@ Kalian dapat menggunakan loop `for` atau `foreach` untuk mengiterasi elemen-elem
 **Contoh:**
 ```php
 <?php
-  foreach ($siswa sebagai $nama) {
+  foreach ($siswa as $nama) {
     echo "Nama siswa: $nama<br>";
   }
 ?>
@@ -83,7 +83,7 @@ Kalian dapat menggunakan loop `foreach` untuk mengiterasi elemen-elemen dalam ar
 **Contoh:**
 ```php
 <?php
-  foreach ($nilaiSiswa sebagai $nama => $nilai) {
+  foreach ($nilaiSiswa as $nama => $nilai) {
     echo "Nama: $nama, Nilai: $nilai<br>";
   }
 ?>
@@ -123,9 +123,9 @@ Kalian bisa menggunakan loop bersarang (nested loop) untuk mengiterasi elemen-el
 **Contoh:**
 ```php
 <?php
-  foreach ($kelas sebagai $namaKelas => $siswa) {
+  foreach ($kelas as $namaKelas => $siswa) {
     echo "Kelas: $namaKelas<br>";
-    foreach ($siswa sebagai $nama => $nilai) {
+    foreach ($siswa as $nama => $nilai) {
       echo "- Nama: $nama, Nilai: $nilai<br>";
     }
     echo "<br>";
@@ -215,7 +215,7 @@ Kita akan membuat aplikasi sederhana untuk mengelola data siswa menggunakan arra
 5. **Menampilkan Data Siswa:**
    ```php
    <?php
-   foreach ($siswa sebagai $nama) {
+   foreach ($siswa as $nama) {
      echo "Nama siswa: $nama<br>";
    }
    ?>
